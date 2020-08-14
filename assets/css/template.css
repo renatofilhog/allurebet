@@ -1,0 +1,40 @@
+body {
+	margin: 0;
+}
+.enviroment{
+	height: 10px;
+	background-color: #000;
+}
+table th{
+	text-align: left;
+}
+.chatbutton {
+width: 400px;
+height: 50px;
+background-color: orange;
+text-align: center;
+line-height: 40px;
+position: fixed;
+bottom: 0;
+right: 50px;
+cursor: pointer;
+}
+
+.chatarea{
+	height: 540px;
+	background-color: #EEE;
+	overflow-y: scroll;
+}
+.inputarea {
+	height: 30px;
+	background-color: #FFF
+}
+#msg{
+	margin: 0;
+	padding: 0;
+	width: 99.5%;
+	height: 100%;
+}
+.msgitem #msgpadrao {
+	margin-bottom: 10px;
+}

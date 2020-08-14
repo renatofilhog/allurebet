@@ -1,0 +1,1 @@
+Aqui ficam os jogos abertos;
