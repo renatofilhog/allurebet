@@ -2,7 +2,7 @@
 /*
 * Classe home: /home/
 * 
-* Basicamente não funciona pra muita coisa, só para carregar os botoes da área do cliente e suporte.
+* views/home.php
 */
 class homeController extends Controller {
 	public function index(){

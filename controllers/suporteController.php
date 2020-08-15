@@ -1,18 +1,14 @@
 <?php
 /*
-* Classe home: /home/
+* Classe admin: /admin/
 * 
+* views/admin.php
 */
-class suporteController extends Controller {
-	public function __construct(){
-		$_SESSION['area'] = 'suporte';
-	}
-
-
+class adminController extends Controller {
 	public function index(){
 		$titles=array();
 		$data = array();
-		$this->loadTemplate('suporte', $data, $titles);
+		$this->loadTemplate('admin', $data, $titles);
 	}
 	
 }
