@@ -7,10 +7,10 @@
 class homeController extends Controller {
 	public function index(){
 		$data = array();
-		$titles = array('ti1' => "Página Inicial");
+		$titles = array('ti1' => "Jogo do Bicho");
 		$this->loadTemplate('home', $data,$titles);
 	}
-
+	
 	
 }
 ?>

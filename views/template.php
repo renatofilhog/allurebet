@@ -3,15 +3,15 @@
 <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Jogo do Bicho</title>
-        <link type="text/css" href="<?php echo BASEURL;?>/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-        <link type="text/css" href="<?php echo BASEURL;?>/assets/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
-        <link type="text/css" href="<?php echo BASEURL;?>/assets/css/theme.css" rel="stylesheet">
-        <link type="text/css" href="<?php echo BASEURL;?>/assets/images/icons/css/font-awesome.css" rel="stylesheet">
+        <title><?php echo $titles['ti1']; ?></title>
+        <link type="text/css" href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link type="text/css" href="assets/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
+        <link type="text/css" href="assets/css/theme.css" rel="stylesheet">
+        <link type="text/css" href="assets/images/icons/css/font-awesome.css" rel="stylesheet">
         <link type="text/css" href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600'
 			rel='stylesheet'>
-		<link rel="stylesheet" type="text/css" href="<?php echo BASEURL;?>/assets/css/template.css">
-		<script type="text/javascript" src="<?php echo BASEURL;?>/assets/js/script.js"></script>
+		<link rel="stylesheet" type="text/css" href="assets/css/template.css">
+		<script type="text/javascript" src="assets/js/script.js"></script>
     </head>
     <body>
         <!-- Menu de cima -->
@@ -89,10 +89,10 @@
                 <b class="copyright">&copy; 2020 - AllureDevelopment / Base in EDMIN </b><br>All rights reserved.
             </div>
         </div>
-        <script src="scripts/jquery-1.9.1.min.js" type="text/javascript"></script>
-        <script src="scripts/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
-        <script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-        <script src="scripts/common.js" type="text/javascript"></script>
+        <script src="assets/scripts/jquery-1.9.1.min.js" type="text/javascript"></script>
+        <script src="assets/scripts/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
+        <script src="assets/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="assets/scripts/common.js" type="text/javascript"></script>
 
     </body>
 </html>

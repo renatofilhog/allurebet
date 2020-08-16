@@ -1,4 +1,3 @@
-
                     <!--Inicio da PAGE HOME-->
                     <!-- 3 primeiros buttons, visualização de status -->
                     <div class="span9">
