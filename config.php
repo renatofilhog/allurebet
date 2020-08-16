@@ -10,6 +10,6 @@ if (ENVIRONMENT == "development") {
 	define("HOST","localhost");
 	define("DBUSER","root");
 	define("DBPASS","");
-	define("BASEURL","http://chat.com");
+	define("BASEURL","projeto.bicho");
 }
 ?>

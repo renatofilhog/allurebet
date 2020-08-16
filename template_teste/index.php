@@ -13,7 +13,6 @@
             rel='stylesheet'>
     </head>
     <body>
-        aaaaaaaaaaaa
         <!-- Menu de cima -->
         <div class="navbar navbar-fixed-top">
             <div class="navbar-inner">
