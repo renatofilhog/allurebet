@@ -1,3 +1,12 @@
+<?php 
+if(!isset($_SESSION['dadosusuario']['nivel_acesso']) || $_SESSION['dadosusuario']['nivel_acesso'] != 1){
+    if($_SESSION['dadosusuario']['nivel_acesso'] == 0){
+        echo "<script>alert('Algo deu errado');window.location.href = '".BASEURL."/home/admin';</script>";
+    } else {
+        echo "<script>alert('Algo deu errado');window.location.href = '".BASEURL."';</script>";
+    }
+}
+?>
                     <!--Inicio da PAGE HOME-->
                     <!-- 3 primeiros buttons, visualização de status -->
                     <p style="text-align: center"><?php echo "Seja bem vindo: ".$nomeusuario; ?></p>

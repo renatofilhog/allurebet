@@ -81,6 +81,11 @@ class validarController extends Controller {
         }
         echo "Não entre aqui";
     }
+
+    public function logout(){
+        $_SESSION['dadosusuario'] = null;
+        header("Location: /home/index");
+    }
     
 
     

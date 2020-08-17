@@ -31,7 +31,7 @@
                                     <li><a href="#">Seu perfil</a></li>
                                     <li><a href="#">Editar seu perfil</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="#">Sair</a></li>
+                                    <li><a href="/acoes/logout">Sair</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -70,7 +70,7 @@
                             </ul>
                         <!--/ ADMIN AREA -->
                             <ul class="widget widget-menu unstyled">
-                                <li><a href="#"><i class="menu-icon icon-signout"></i>Logout </a></li>
+                                <li><a href="/acoes/logout"><i class="menu-icon icon-signout"></i>Logout </a></li>
                             </ul>
                         </div>
                         <!--/.FIM MENU LATERAL-->

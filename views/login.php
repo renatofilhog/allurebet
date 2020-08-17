@@ -1,10 +1,3 @@
-<?php 
-//    session_start(); //ja tem no index
-    if(isset($_SESSION['logado']) || !empty($_SESSION['logado']) ){
-        header("location: index.php/login");
-    }
-    
-?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -20,7 +13,7 @@
 </head>
 <body>
     <div id="logreg-forms">
-        <form class="form-signin" action="/validar/login" method="POST">
+        <form class="form-signin" action="/acoes/login" method="POST">
             <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"> Entre com sua conta</h1>
             <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Endereço de Email" required="" autofocus="">
             <input type="password" name="senha" id="inputPassword" class="form-control" placeholder="Senha" required="">
@@ -38,7 +31,7 @@
                 <a href="#" id="cancel_reset"><i class="fas fa-angle-left"></i> Voltar</a>
             </form> -->
             
-            <form action="/validar/registro/" class="form-signup" method="POST">
+            <form action="/acoes/registro/" class="form-signup" method="POST">
                 <p style="text-align:center">Registre-se</p>
 
                 <input type="text" name="nome" id="user-name" class="form-control" placeholder="Nome completo" required="" autofocus="">
