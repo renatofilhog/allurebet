@@ -7,10 +7,19 @@
 class homeController extends Controller {
 	public function index(){
 		$data = array();
-		$titles = array('ti1' => "Jogo do Bicho");
-		$this->loadTemplate('home', $data,$titles);
+		$this->loadView('login', $data);
 	}
 	
-	
+	public function admin(){
+		$data = array();
+		$titles = array('ti1' => "Jogo do Bicho");
+		$this->loadTemplate('admin', $data,$titles);
+	}
+
+	public function cliente(){
+		$data = array();
+		$titles = array('ti1' => "Jogo do Bicho");
+		$this->loadTemplate('cliente', $data,$titles);
+	}
 }
 ?>

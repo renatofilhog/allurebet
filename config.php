@@ -6,10 +6,10 @@ define("ENVIRONMENT","development");
 // Configuração de Constantes para os casos
 
 if (ENVIRONMENT == "development") {
-	define("DBNAME","chat");
+	define("DBNAME","bicho");
 	define("HOST","localhost");
 	define("DBUSER","root");
 	define("DBPASS","");
-	define("BASEURL","projeto.bicho");
+	define("BASEURL","http://jogodobicho.com");
 }
 ?>
