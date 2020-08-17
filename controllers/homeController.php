@@ -17,9 +17,9 @@ class homeController extends Controller {
 	}
 
 	public function cliente(){
-		$data = array();
+		$data = array('nomeusuario' => $_SESSION['dadosusuario']['nome']);
 		$titles = array('ti1' => "Jogo do Bicho");
-		$this->loadTemplate('cliente', $data,$titles);
+		$this->loadTemplate2('cliente', $data,$titles);
 	}
 }
 ?>

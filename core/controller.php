@@ -13,11 +13,21 @@ class controller {
 
 	}
 	// Método para carregar o template nas páginas.
+	// Admin
 	public function loadTemplate($viewName, $viewData = array(),$titles) {
 		// Extrai de acordo com as chaves, as variáveis com seus respectitivos valores
 		extract($titles);
 		// Incluindo o template na página
-		include 'views/template.php';
+		include 'views/template_admin.php';
+	}
+
+	// Método para carregar o template nas páginas.
+	// Cliente
+	public function loadTemplate2($viewName, $viewData = array(),$titles) {
+		// Extrai de acordo com as chaves, as variáveis com seus respectitivos valores
+		extract($titles);
+		// Incluindo o template na página
+		include 'views/template_cliente.php';
 	}
 }
 

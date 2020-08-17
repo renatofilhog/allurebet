@@ -15,6 +15,9 @@ class Usuario extends model {
 	*/
 	public function consultar($email, $senha){
 		$sql = "SELECT * FROM usuarios WHERE email=? AND senha=?";
+//		$sql = "SELECT * FROM usuarios WHERE email='$email' AND senha='$senha'";
+//		echo $sql;
+//		exit;
 		$sql = $this->pdo->prepare($sql);
 		$sql->bindParam(1,$email, PDO::PARAM_STR);
 		$sql->bindParam(2,$senha, PDO::PARAM_STR);
@@ -64,11 +67,11 @@ class Usuario extends model {
 	}
 
 	public function setSenha($s){
-		$this->senha = md5($s);
+		$this->senha = $s;
 	}
 
 	public function salvar(){
-		if (isset($this->id)){
+		if (isset($this->id) && !empty($this->id)){
 			//Update
 			$sql = "UPDATE usuarios SET nome=?, email=?, senha=?, nivel_acesso=? WHERE id=?";
 			$sql = $this->pdo->prepare($sql);
@@ -80,15 +83,18 @@ class Usuario extends model {
 			//$sql->execute(array($this->nome,$this->email,$this->senha,$this->id));
 			$sql->execute();
 
-		} else if (isset($this->nome) && isset($this->email) && isset($this->senha)) {
+		} else if (isset($this->nome) && isset($this->email) && isset($this->senha) && !empty($this->nome) && !empty($this->email) && !empty($this->senha)) {
 			//Insert
 			$sql = "INSERT INTO usuarios SET nome=?, email=?, senha=?";
 			$sql = $this->pdo->prepare($sql);
 			if($sql->execute(array($this->nome,$this->email,$this->senha))){
-				$LAST_ID = $this->pdo->lastInsertId();
-				return $LAST_ID;
-			}
+				$this->id = $this->pdo->lastInsertId();
+				$this->nivelAcesso = 0;
+				return true;
 
+			} else {
+				return false;
+			}
 		} 
 	}
 

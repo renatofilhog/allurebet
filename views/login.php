@@ -38,13 +38,13 @@
                 <a href="#" id="cancel_reset"><i class="fas fa-angle-left"></i> Voltar</a>
             </form> -->
             
-            <form action="/validar/registro/" class="form-signup">
+            <form action="/validar/registro/" class="form-signup" method="POST">
                 <p style="text-align:center">Registre-se</p>
 
-                <input type="text" id="user-name" class="form-control" placeholder="Nome completo" required="" autofocus="">
-                <input type="email" id="user-email" class="form-control" placeholder="Endereço de Email" required autofocus="">
-                <input type="password" id="user-pass" class="form-control" placeholder="Senha" required autofocus="">
-                <input type="password" id="user-repeatpass" class="form-control" placeholder="Repita sua senha" required autofocus="">
+                <input type="text" name="nome" id="user-name" class="form-control" placeholder="Nome completo" required="" autofocus="">
+                <input type="email" name="email" id="user-email" class="form-control" placeholder="Endereço de Email" required autofocus="">
+                <input type="password" name="senha" id="user-pass" class="form-control" placeholder="Senha" required autofocus="">
+                <input type="password" name="re-senha" id="user-repeatpass" class="form-control" placeholder="Repita sua senha" required autofocus="">
 
                 <button class="btn btn-primary btn-block" type="submit"><i class="fas fa-user-plus"></i> Registre-se</button>
                 <a href="#" id="cancel_signup"><i class="fas fa-angle-left"></i> Voltar</a>

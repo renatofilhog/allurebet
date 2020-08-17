@@ -83,6 +83,11 @@
 
 
 
+                    </div>
+            <!--/.container-->
+        </div>
+        <!--/.wrapper-->
+        </div>
 					<!-- footer do template -->
         <div class="footer">
             <div class="container">
