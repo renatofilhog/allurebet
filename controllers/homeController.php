@@ -11,7 +11,7 @@ class homeController extends Controller {
 	}
 	
 	public function admin(){
-		$data = array();
+		$data = array('nomeusuario' => $_SESSION['dadosusuario']['nome']);
 		$titles = array('ti1' => "Jogo do Bicho");
 		$this->loadTemplate('admin', $data,$titles);
 	}

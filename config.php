@@ -11,5 +11,11 @@ if (ENVIRONMENT == "development") {
 	define("DBUSER","root");
 	define("DBPASS","");
 	define("BASEURL","http://jogodobicho.com");
+} elseif(ENVIRONMENT == "prodution"){
+	define("DBNAME","bicho");
+	define("HOST","mysql669.umbler.com");
+	define("DBUSER","bicho");
+	define("DBPASS","bicho123");
+	define("BASEURL","http://jogodobicho.com");
 }
 ?>

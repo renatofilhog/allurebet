@@ -1,5 +1,6 @@
                     <!--Inicio da PAGE HOME-->
                     <!-- 3 primeiros buttons, visualização de status -->
+                    <p style="text-align: center"><?php echo "Seja bem vindo: ".$nomeusuario; ?></p>
                     <div class="span9">
                         <div class="content">
                             <div class="btn-controls">

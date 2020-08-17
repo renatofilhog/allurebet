@@ -20,7 +20,7 @@
 </head>
 <body>
     <div id="logreg-forms">
-        <form class="form-signin" action="index.php/login">
+        <form class="form-signin" action="/validar/login" method="POST">
             <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"> Entre com sua conta</h1>
             <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Endereço de Email" required="" autofocus="">
             <input type="password" name="senha" id="inputPassword" class="form-control" placeholder="Senha" required="">
@@ -32,13 +32,13 @@
             <button class="btn btn-primary btn-block" type="button" id="btn-signup"><i class="fas fa-user-plus"></i> Registre uma nova conta</button>
             </form>
 
-            <form action="/reset/password/" class="form-reset">
+            <!-- <form action="/reset/password/" class="form-reset">
                 <input type="email" id="resetEmail" class="form-control" placeholder="Endereço de Email" required="" autofocus="">
                 <button class="btn btn-primary btn-block" type="submit">Esqueci minha senha</button>
                 <a href="#" id="cancel_reset"><i class="fas fa-angle-left"></i> Voltar</a>
-            </form>
+            </form> -->
             
-            <form action="/signup/" class="form-signup">
+            <form action="/validar/registro/" class="form-signup">
                 <p style="text-align:center">Registre-se</p>
 
                 <input type="text" id="user-name" class="form-control" placeholder="Nome completo" required="" autofocus="">
