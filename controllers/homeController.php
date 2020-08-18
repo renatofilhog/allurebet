@@ -11,7 +11,14 @@ class homeController extends Controller {
 	}
 	
 	public function admin(){
-		$data = array('nomeusuario' => $_SESSION['dadosusuario']['nome']);
+		$n_usuarios = new Usuario();
+		$n_jogos = new Jogos();
+		// contarJogos(1) <-- Status = 1 / Em andamento;
+		$data = array(
+			'nomeusuario' => $_SESSION['dadosusuario']['nome'],
+			'n_usuarios' => $n_usuarios->contarUsuarios(),
+			'n_jogos_andamento' => $n_jogos->contarJogos(1)
+		);
 		$titles = array('ti1' => "Jogo do Bicho");
 		$this->loadTemplate('admin', $data,$titles);
 	}

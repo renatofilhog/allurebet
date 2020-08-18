@@ -1,10 +1,10 @@
 <?php
 /*
-* Classe validar: /validar/
+* Classe acoes: /acoes/
 * 
 * Não há VIEWS, funciona somente para redirecionamento
 */
-class validarController extends Controller {
+class acoesController extends Controller {
    
 
 	public function login(){
@@ -85,6 +85,57 @@ class validarController extends Controller {
     public function logout(){
         $_SESSION['dadosusuario'] = null;
         header("Location: /home/index");
+    }
+
+    public function cadastrarJogo(){
+        if (
+        isset($_POST['nome_jogo']) && !empty( $_POST['nome_jogo'] ) 
+        && isset($_POST['data_inicio']) && !empty( $_POST['data_inicio'] ) 
+        && isset($_POST['data_fim']) && !empty( $_POST['data_fim'] ) 
+        && isset($_POST['tipo_jogo']) && !empty( $_POST['tipo_jogo'] ) 
+        && isset($_POST['valor_minimo']) && !empty( $_POST['valor_minimo'] ) 
+        && isset($_POST['palpites_disponiveis']) && !empty( $_POST['palpites_disponiveis'] )
+        ) {
+            $nome_jogo = addslashes($_POST['nome_jogo']);
+            $data_inicio = addslashes($_POST['data_inicio']);
+            $data_fim = addslashes($_POST['data_fim']);
+            $tipo_jogo = addslashes($_POST['tipo_jogo']);
+            $valor_minimo = addslashes($_POST['valor_minimo']);
+            $palpites_disponiveis = addslashes($_POST['palpites_disponiveis']);
+            
+            // Criando Orientação objeto de JOGO
+            $j = new Jogos();
+            if(!$j->consultar($nome_jogo)){
+                $j->setNome_jogo($nome_jogo);
+                $j->setData_inicio($data_inicio);
+                $j->setData_fim($data_fim);
+                $j->setTipo_jogo($tipo_jogo);
+                $j->setValor_minimo($valor_minimo);
+                $j->setPalpites_disponiveis($palpites_disponiveis);
+
+
+                if($j->salvar()){
+                    // Manda mensagem pro SESSION
+                    $_SESSION['msg']['cadastro_jogo'] = 1;
+                    header("Location: /admin/jogo/");
+                } else {
+                    $_SESSION['msg']['cadastro_jogo_error'] = "Algo deu errado, revise os campos";
+                }
+            } else {
+                // Manda mensagem pro SESSION NEGATIVA 
+                $_SESSION['msg']['cadastro_jogo'] = 2;
+                $_SESSION['msg']['cadastro_jogo_error']= "Já existe um jogo com este nome";
+                header("Location: /admin/jogo/");
+            }
+
+        }
+
+
+
+
+
+
+        
     }
     
 

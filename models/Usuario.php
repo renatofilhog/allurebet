@@ -10,14 +10,18 @@ class Usuario extends model {
 	private $senha;
 	private $nivel_acesso;
 
+
+	public function contarUsuarios(){
+		$sql = "SELECT * FROM usuarios";
+		$sql = $this->pdo->query($sql);
+		return $sql->rowCount();
+	}
+
 	/*
 	* Consulta um único usuário, usado na action de consulta e para pegar parâmetros
 	*/
 	public function consultar($email, $senha){
 		$sql = "SELECT * FROM usuarios WHERE email=? AND senha=?";
-//		$sql = "SELECT * FROM usuarios WHERE email='$email' AND senha='$senha'";
-//		echo $sql;
-//		exit;
 		$sql = $this->pdo->prepare($sql);
 		$sql->bindParam(1,$email, PDO::PARAM_STR);
 		$sql->bindParam(2,$senha, PDO::PARAM_STR);
@@ -33,43 +37,7 @@ class Usuario extends model {
 		}
 		return false;
 	}
-
-	public function getId(){
-		return $this->id;
-	}
-
-	public function getNome(){
-		return $this->nome;
-	}
-
-	public function setNome($n){
-		$this->nome = $n;
-	}
 	
-	public function getEmail(){
-		return $this->email;
-	}
-	
-	public function setEmail($e){
-		$this->email = $e;
-	}
-
-	public function getNivelAcesso(){
-		return $this->nivel_acesso;
-	}
-
-	public function setNivelAcesso($na){
-		$this->nivel_acesso = $na;
-	}
-
-	public function getSenha(){
-		return $this->senha;
-	}
-
-	public function setSenha($s){
-		$this->senha = $s;
-	}
-
 	public function salvar(){
 		if (isset($this->id) && !empty($this->id)){
 			//Update
@@ -113,6 +81,46 @@ class Usuario extends model {
 
 
 
+	/*
+	* Getters e Setters
+	* Esse não foi no gerador, foi a mão mesmo kk
+	*/
+
+	public function getId(){
+		return $this->id;
+	}
+
+	public function getNome(){
+		return $this->nome;
+	}
+
+	public function setNome($n){
+		$this->nome = $n;
+	}
+	
+	public function getEmail(){
+		return $this->email;
+	}
+	
+	public function setEmail($e){
+		$this->email = $e;
+	}
+
+	public function getNivelAcesso(){
+		return $this->nivel_acesso;
+	}
+
+	public function setNivelAcesso($na){
+		$this->nivel_acesso = $na;
+	}
+
+	public function getSenha(){
+		return $this->senha;
+	}
+
+	public function setSenha($s){
+		$this->senha = $s;
+	}
 	/*
 	* Tráz todos os usuários, usado na tabela
 	* ========= Desuso ===============

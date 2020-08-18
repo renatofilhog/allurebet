@@ -1,3 +1,13 @@
+<?php 
+if(isset($_SESSION['dadosusuario']['nivel_acesso'])){
+    if($_SESSION['dadosusuario']['nivel_acesso'] == 1){
+        header("Location: /home/admin");
+    } elseif($_SESSION['dadosusuario']['nivel_acesso'] == 0){
+        header("Location: /home/cliente");
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
