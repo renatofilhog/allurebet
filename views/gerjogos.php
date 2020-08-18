@@ -18,9 +18,27 @@
                         </tr>
                     </thead>
                     <tbody>
-                        
-                       
-
+                        <?php foreach($allgames as $chave => $valor): ?>    
+                            <tr>
+                                <td><?php echo $valor['nome_jogo'] ?></td>
+                                <td><?php echo $valor['data_inicio'] ?></td>
+                                <td><?php echo $valor['data_fim'] ?></td>
+                                <td><?php echo $valor['tipo_jogo'] ?></td>
+                                <td><?php echo $valor['valor_minimo'] ?></td>
+                                <td>
+                                    <?php 
+                                        // Status: 0 = Pendente / 1 = Em andamento / 2 = Finalizado
+                                        if($valor['status'] == 0){
+                                            echo "Pendente";
+                                        } elseif($valor['status'] == 1){
+                                            echo "Em andamento";
+                                        } elseif($valor['status'] == 2){
+                                            echo "Finalizado";
+                                        }
+                                    ?>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
                     </tbody>
                     <tfoot>
                         <tr>
