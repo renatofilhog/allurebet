@@ -81,9 +81,9 @@
 
                         <!-- Palpites separados por virgula -->
                         <div class="control-group">
-                            <label class="control-label" for="basicinput">Textarea</label>
+                            <label class="control-label" for="basicinput">Palpites disponíveis</label>
                             <div class="controls">
-                                <textarea class="span8" rows="5" name="palpites_disponiveis" required></textarea>
+                                <input type="text" class="span8" name="palpites_disponiveis" required></textarea>
                                 <span class="help-inline">Separe por virgulas sem espaços Ex.: Cachorro,Gato,Avestruz,Touro</span>
                             </div>
                         </div>

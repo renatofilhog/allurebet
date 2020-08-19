@@ -63,8 +63,11 @@ class Jogos extends model {
             $sql->bindParam(5,$this->ativo, PDO::PARAM_INT);
             $sql->bindParam(6,$this->id, PDO::PARAM_INT);
             //$sql->execute(array($this->nome,$this->email,$this->senha,$this->id));
-			$sql->execute();
-
+			if($sql->execute()){
+				return true;
+			} else {
+				return false;
+			}
 		} else if (
             isset($this->nome_jogo) && !empty($this->nome_jogo) 
             && isset($this->data_inicio) && !empty($this->data_inicio) 
@@ -125,7 +128,7 @@ class Jogos extends model {
 	public function consultarId($id){
 		$sql = "SELECT * FROM jogos WHERE id=?";
 		$sql = $this->pdo->prepare($sql);
-		$sql->bindParam(1,$nome_jogo, PDO::PARAM_INT);
+		$sql->bindParam(1,$id, PDO::PARAM_INT);
 		$sql->execute();
 		$data = array();
 		if ($sql->rowCount()>0){
@@ -141,7 +144,7 @@ class Jogos extends model {
             $this->ativo = $data['ativo'];
 			return $data;
 		} else {
-			return false;
+			return "datafalsa";
 		}
 	}
 

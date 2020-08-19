@@ -13,9 +13,6 @@ class jogosController extends Controller {
         header("Location: /admin/gerjogos/");
     }
 
-    public function editar(){
-        print_r($_GET);
-    }
     
     public function iniciar(){
         if(isset($_GET['id']) && !empty($_GET['id'])){
@@ -101,12 +98,15 @@ class jogosController extends Controller {
             $j = new Jogos();
             $data['dadosjogo'] = $j->consultarId($id);
             $titles = array("ti1"=>"Editar Jogo");
-            $this->loadTemplate("verJogosInativos",$data,$titles);
+            $data['dadosjogo']['data_inicio'] = date("d/m/Y", strtotime($data['dadosjogo']['data_inicio']));
+            $data['dadosjogo']['data_fim'] = date("d/m/Y", strtotime($data['dadosjogo']['data_fim']));
+
+            $this->loadTemplate("editarJogo",$data,$titles);
 
         } else {
             echo "<script>alert('algo deu errado');</script>";
             header("Location: /home/");
-            
+
         }
 
     }

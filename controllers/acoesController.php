@@ -129,13 +129,47 @@ class acoesController extends Controller {
             }
 
         }
+    }
 
-
-
-
-
-
-        
+    public function editarJogo(){
+        $j = new Jogos();
+        if (
+            isset($_SESSION['POST']['nome_jogo']) && !empty( $_SESSION['POST']['nome_jogo'] )
+            && isset($_POST['data_inicio']) && !empty( $_POST['data_inicio'] ) 
+            && isset($_POST['data_fim']) && !empty( $_POST['data_fim'] ) 
+            && isset($_POST['tipo_jogo']) && !empty( $_POST['tipo_jogo'] ) 
+            && isset($_POST['valor_minimo']) && !empty( $_POST['valor_minimo'] ) 
+            && isset($_POST['palpites_disponiveis']) && !empty( $_POST['palpites_disponiveis'] )
+            ) {
+                $nome_jogo = addslashes( $_SESSION['POST']['nome_jogo'] );
+                $data_inicio = addslashes($_POST['data_inicio']);
+                $data_fim = addslashes($_POST['data_fim']);
+                $tipo_jogo = addslashes($_POST['tipo_jogo']);
+                $valor_minimo = addslashes($_POST['valor_minimo']);
+                $palpites_disponiveis = addslashes($_POST['palpites_disponiveis']);
+                
+                // Criando Orientação objeto de JOGO
+                
+                if($j->consultar($nome_jogo)){
+                    $j->setData_inicio($data_inicio);
+                    $j->setData_fim($data_fim);
+                    $j->setTipo_jogo($tipo_jogo);
+                    $j->setValor_minimo($valor_minimo);
+                    $j->setPalpites_disponiveis($palpites_disponiveis);
+                    $id = $j->getId();
+                    if($j->salvar()){
+                        // Manda mensagem pro SESSION
+                        $_SESSION['msg']['edit_jogo'] = 1;
+                        header("Location: /jogos/editar?id=$id");
+                    } else {
+                        $_SESSION['msg']['edit_jogo'] = 2;
+                        header("Location: /jogos/editar?id=$id");
+                    }
+                }
+            } else {
+               
+                header("Location: /home/");
+            }
     }
     
 
