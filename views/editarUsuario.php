@@ -6,36 +6,51 @@
                 <h3>Editar jogo</h3>
             </div>
             <div class="module-body">
-                <?php if(!isset($_SESSION['msg']['edit_user']) || $_SESSION['msg']['edit_jogo'] == 0): ?>
+                <!-- Mensagem padrão -->
+                <?php if(!isset($_SESSION['msg']['edit_user']) || $_SESSION['msg']['edit_user'] == 0): ?>
                     <div class="alert">
                         <button type="button" class="close" data-dismiss="alert">×</button>
-                        <strong>Atenção!</strong> Só altere o que quer mudar.
+                        <strong>Atenção!</strong> Só preencha o que quer mudar.
                     </div>
                 <?php $_SESSION['msg']['edit_user'] = 0; endif; ?>
                 
+                <!-- Mensagens de sucesso -->
                 <?php if(isset($_SESSION['msg']['edit_user']) && $_SESSION['msg']['edit_user'] == 1): ?>
                     <div class="alert alert-success">
                         <button type="button" class="close" data-dismiss="alert">×</button>
-                        <strong>Usuário editado!</strong> Verifique a área de gerenciamento para maiores detalhes
+                        <?php echo $_SESSION['msg']['aviso'] ?>
+
                     </div>
                 <?php $_SESSION['msg']['edit_user'] = 0; endif; ?>
 
+                <!-- Mensagens de erros -->
                 <?php if(isset($_SESSION['msg']['edit_user']) && $_SESSION['msg']['edit_user'] == 2): ?>
                     <div class="alert alert-error">
                         <button type="button" class="close" data-dismiss="alert">×</button>
-                        <strong>Error!</strong> Algo deu errado!
+                        <?php echo $_SESSION['msg']['aviso'] ?>
+                        
+                    </div>
+                <?php $_SESSION['msg']['edit_user'] = 0; endif; ?>
+
+                <!-- Nenhum campo foi alterado -->
+                <?php if(isset($_SESSION['msg']['edit_user']) && $_SESSION['msg']['edit_user'] == 3): ?>
+                    <div class="alert">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        <?php echo $_SESSION['msg']['aviso'] ?>
+                        
                     </div>
                 <?php $_SESSION['msg']['edit_user'] = 0; endif; ?>
 
                     <br />
 
-                    <form class="form-horizontal row-fluid" action="/acoes/editarUsuario" method="POST">
+                    <form class="form-horizontal row-fluid" action="/acoes/editarUsuario?id=<?php echo $_GET['id']; ?>" method="POST">
                         
                         <!-- Nome pessoa -->
                         <div class="control-group">
                             <label class="control-label" for="basicinput">Nome</label>
                             <div class="controls">
-                                <input type="text" name="nome" id="basicinput" value="<?php echo $dadosusuario['nome'];?>" class="span8" required>
+                                <input type="text" name="nome" id="basicinput" class="span8">
+                                <span class="help-inline"><i><?php echo $dadosusuario['nome'];?></i></span>
                             </div>
                         </div>
 
@@ -43,16 +58,24 @@
                         <div class="control-group">
                             <label class="control-label" for="basicinput">Email</label>
                             <div class="controls">
-                                <input type="email" name="email" id="basicinput" value="<?php echo $dadosusuario['email']?>" class="span8">
-                                <span class="help-inline">Digite um válido</span>
+                                <input type="email" name="email" id="basicinput" class="span8">
+                                <span class="help-inline"><i><?php echo $dadosusuario['email'];?></i></span>
                             </div>
                         </div>
 
                         <!-- Senha -->
                         <div class="control-group">
-                            <label class="control-label" for="basicinput">Senha (Desabilitado por enquanto)</label>
+                            <label class="control-label" for="basicinput">Nova Senha</label>
                             <div class="controls">
-                            <input type="password" name="data_fim" id="basicinput" value="<?php echo $dadosusuario['senha']?>" class="span8" disabled>
+                            <input type="password" name="senha" id="basicinput" placeholder="Nova senha" class="span8">
+                            </div>
+                        </div>
+
+                        <!-- Confirmar Senha -->
+                        <div class="control-group">
+                            <label class="control-label" for="basicinput">Confirmar Senha</label>
+                            <div class="controls">
+                            <input type="password" name="re-senha" id="basicinput" placeholder="Repita a senha" class="span8">
                             </div>
                         </div>
 
@@ -60,11 +83,18 @@
                         <div class="control-group">
 							<label class="control-label" for="basicinput">Permissão</label>
 							<div class="controls">
-									<select name="nivel_acesso" required="required">
-										<option>Selecione...</option>
+									<select class="span8" name="nivel_acesso" required="required">
+										<option value=99>Selecione...</option>
 										<option value=1>Administrador</option>
 										<option value=0>Cliente</option>
 									</select>
+                                    <span class="help-inline"><i><?php
+                                            if($dadosusuario['nivel_acesso'] == 1){
+                                                echo "Administrador";
+                                            } elseif($dadosusuario['nivel_acesso'] == 0){
+                                                echo "Cliente";
+                                            }
+                                    ?></i></span>
 							</div>
 						</div>
 

@@ -171,9 +171,67 @@ class acoesController extends Controller {
                 header("Location: /home/");
             }
     }
-    
+
+    public function editarUsuario(){
+        $u = new Usuario();
+        // print_r(get_defined_vars());
+        // echo "<br>";
+        // print_r($_POST);
+        // exit;
+        if(isset($_GET['id']) && !empty($_GET['id'])){
+            $id = $_GET['id'];
+            $u->consultarId($id);
+            echo "Entrou";
+            if(isset($_POST['senha']) && !empty($_POST['senha']) && isset($_POST['senha']) && !empty($_POST['senha']) ) {
+                if($_POST['senha'] == $_POST['re-senha'] ){
+                    $senha = md5(addslashes($_POST['senha']) );
+                    $u->setSenha($senha);
+                }
+            }
+
+            if(isset($_POST['nome']) && !empty( $_POST['nome']) ) {
+                $nome = addslashes($_POST['nome']);
+                $u->setNome($nome);
+            }
+
+            if(isset($_POST['email']) && !empty( $_POST['email'] ) ){
+                $email = addslashes($_POST['email']);
+                $u->setEmail($email);
+            }
+
+            if(isset($_POST['nivel_acesso']) && !empty( $_POST['nivel_acesso']) ){
+                if($_POST['nivel_acesso'] != 99 ){
+                    $nivel_acesso = addslashes($_POST['nivel_acesso']);
+                    $u->setNivelAcesso($nivel_acesso);
+                }
+            }
+
+            if($u->salvar()){
+                // Manda mensagem pro SESSION
+                $_SESSION['msg']['edit_user'] = 1;
+                $_SESSION['msg']['aviso'] = "<strong>Usuário editado!</strong> Verifique a área de gerenciamento para maiores detalhes";
+                header("Location: /usuarios/editar?id=$id");
+            } else {
+                $_SESSION['msg']['edit_user'] = 2;
+                $_SESSION['msg']['aviso'] = "<strong>Error!</strong> Algo deu errado!";
+                header("Location: /usuarios/editar?id=$id");
+            }
+
+            if(
+                empty($_POST['nome']) && empty($_POST['email']) && empty($_POST['senha']) && $_POST['nivel_acesso'] == 99
+            ){
+                $_SESSION['msg']['edit_user'] = 3;
+                $_SESSION['msg']['aviso'] = "<strong>Nada feito!</strong> nenhum campo foi alterado.";
+            }
+            
+
+            
+        
+        }
+    }
 
     
 
 }
+
 ?>

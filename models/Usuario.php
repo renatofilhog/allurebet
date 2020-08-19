@@ -59,7 +59,11 @@ class Usuario extends model {
 			$sql->bindParam(4,$this->nivel_acesso, PDO::PARAM_INT);
 			$sql->bindParam(5,$this->id, PDO::PARAM_INT);
 			//$sql->execute(array($this->nome,$this->email,$this->senha,$this->id));
-			$sql->execute();
+			if($sql->execute()){
+				return true;
+			} else {
+				return false;
+			}
 
 		} else if (isset($this->nome) && isset($this->email) && isset($this->senha) && !empty($this->nome) && !empty($this->email) && !empty($this->senha)) {
 			//Insert
