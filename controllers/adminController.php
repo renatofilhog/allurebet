@@ -31,8 +31,17 @@ class adminController extends Controller {
         $data = array();
         $j = new Jogos();
         $data['allgames'] = $j->trazerTodos(0);
-        $titles = array("ti1"=>"Gerenciar jogos");
+        $titles = array("ti1"=>"Gerenciar jogos inativos");
         $this->loadTemplate("verJogosInativos",$data,$titles);
     }
+
+    public function gerusuarios(){
+        $data = array();
+        $u = new Usuario();
+        $data['allusers'] = $u->trazerTodos();
+        $titles = array("ti1"=>"Gerenciar usuários");
+        $this->loadTemplate("gerenciarUsuarios",$data,$titles);
+    }
+
 
 }

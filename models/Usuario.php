@@ -10,6 +10,16 @@ class Usuario extends model {
 	private $senha;
 	private $nivel_acesso;
 
+	public function trazerTodos(){
+		$sql = "SELECT * FROM usuarios";
+		$sql = $this->pdo->prepare($sql);
+		$sql->execute();
+		if ($sql->rowCount()>0) {
+			return $sql->fetchAll();
+		} else {
+			$this->setMessage("Não teve resultados");
+		}
+	}
 
 	public function contarUsuarios(){
 		$sql = "SELECT * FROM usuarios";
@@ -78,6 +88,24 @@ class Usuario extends model {
 		}
 	}
 
+	public function consultarId($id){
+		$sql = "SELECT * FROM usuarios WHERE id=?";
+		$sql = $this->pdo->prepare($sql);
+		$sql->bindParam(1,$id, PDO::PARAM_INT);
+		$sql->execute();
+		$data = array();
+		if ($sql->rowCount()>0){
+			$data = $sql->fetch();
+			$this->nome = $data["nome"];
+			$this->email = $data["email"];
+			$this->id = $data["id"];
+			$this->nivel_acesso = $data["nivel_acesso"];
+			$this->senha = $data["senha"];
+			return $data;
+		}
+		return false;
+	}
+
 
 
 
@@ -121,20 +149,7 @@ class Usuario extends model {
 	public function setSenha($s){
 		$this->senha = $s;
 	}
-	/*
-	* Tráz todos os usuários, usado na tabela
-	* ========= Desuso ===============
-	*/
-	public function trazerTodos(){
-		$sql = "SELECT * FROM usuarios";
-		$sql = $this->pdo->prepare($sql);
-		$sql->execute();
-		if ($sql->rowCount()>0) {
-			return $sql->fetchAll();
-		} else {
-			$this->setMessage("Não teve resultados");
-		}
-	}
+	
 	/* 
 	* Teste de Mensagem de Erro
 	*/
