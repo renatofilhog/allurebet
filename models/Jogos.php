@@ -16,8 +16,8 @@ class Jogos extends model {
     private $ativo;
 
 
-	public function trazerTodos(){
-		$sql = "SELECT * FROM jogos WHERE ativo=1";
+	public function trazerTodos($ativo){
+		$sql = "SELECT * FROM jogos WHERE ativo=$ativo";
 		$sql = $this->pdo->query($sql);
 		if($sql->rowCount()>0){
 			return $sql->fetchAll();
@@ -40,6 +40,15 @@ class Jogos extends model {
 
 			return $sql->rowCount();
 		}
+	}
+
+	public function contarJogosAI($ativo){
+		
+			$sql = "SELECT * FROM jogos WHERE ativo=?";
+			$sql = $this->pdo->prepare($sql);
+			$sql->bindParam(1,$ativo, PDO::PARAM_INT);
+			$sql->execute();
+			return $sql->rowCount();
 	}
 
     public function salvar(){
@@ -112,6 +121,146 @@ class Jogos extends model {
 			return false;
 		}
 	}
+
+	public function consultarId($id){
+		$sql = "SELECT * FROM jogos WHERE id=?";
+		$sql = $this->pdo->prepare($sql);
+		$sql->bindParam(1,$nome_jogo, PDO::PARAM_INT);
+		$sql->execute();
+		$data = array();
+		if ($sql->rowCount()>0){
+            $data = $sql->fetch();
+            $this->id = $data['id'];
+            $this->nome_jogo = $data['nome_jogo'];
+            $this->data_inicio = $data['data_inicio'];
+            $this->data_fim = $data['data_fim'];
+            $this->tipo_jogo = $data['tipo_jogo'];
+            $this->valor_minimo = $data['valor_minimo'];
+            $this->palpites_disponiveis = $data['palpites_disponiveis'];
+            $this->status = $data['status'];
+            $this->ativo = $data['ativo'];
+			return $data;
+		} else {
+			return false;
+		}
+	}
+
+	public function iniciarJogo($id){
+		$sql = "SELECT * FROM jogos WHERE id=?";
+		$sql = $this->pdo->prepare($sql);
+		$sql->bindParam(1,$id, PDO::PARAM_INT);
+		$sql->execute();
+		$data = array();
+		if ($sql->rowCount()>0){
+            $data = $sql->fetch();
+            $this->id = $data['id'];
+            $this->nome_jogo = $data['nome_jogo'];
+            $this->data_inicio = $data['data_inicio'];
+            $this->data_fim = $data['data_fim'];
+            $this->tipo_jogo = $data['tipo_jogo'];
+            $this->valor_minimo = $data['valor_minimo'];
+            $this->palpites_disponiveis = $data['palpites_disponiveis'];
+            $this->status = $data['status'];
+			$this->ativo = $data['ativo'];
+			if($this->status == 0){
+				$this->status = 1;
+				$this->salvar();
+				return true;	
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
+	}
+
+	public function finalizarJogo($id){
+		$sql = "SELECT * FROM jogos WHERE id=?";
+		$sql = $this->pdo->prepare($sql);
+		$sql->bindParam(1,$id, PDO::PARAM_INT);
+		$sql->execute();
+		$data = array();
+		if ($sql->rowCount()>0){
+            $data = $sql->fetch();
+            $this->id = $data['id'];
+            $this->nome_jogo = $data['nome_jogo'];
+            $this->data_inicio = $data['data_inicio'];
+            $this->data_fim = $data['data_fim'];
+            $this->tipo_jogo = $data['tipo_jogo'];
+            $this->valor_minimo = $data['valor_minimo'];
+            $this->palpites_disponiveis = $data['palpites_disponiveis'];
+            $this->status = $data['status'];
+			$this->ativo = $data['ativo'];
+			if($this->status == 1){
+				$this->status = 2;
+				$this->salvar();
+				return true;	
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
+	}
+
+	public function inativarJogo($id){
+		$sql = "SELECT * FROM jogos WHERE id=?";
+		$sql = $this->pdo->prepare($sql);
+		$sql->bindParam(1,$id, PDO::PARAM_INT);
+		$sql->execute();
+		$data = array();
+		if ($sql->rowCount()>0){
+            $data = $sql->fetch();
+            $this->id = $data['id'];
+            $this->nome_jogo = $data['nome_jogo'];
+            $this->data_inicio = $data['data_inicio'];
+            $this->data_fim = $data['data_fim'];
+            $this->tipo_jogo = $data['tipo_jogo'];
+            $this->valor_minimo = $data['valor_minimo'];
+            $this->palpites_disponiveis = $data['palpites_disponiveis'];
+            $this->status = $data['status'];
+			$this->ativo = $data['ativo'];
+			if($this->ativo == 1){
+				$this->ativo = 0;
+				$this->salvar();
+				return true;	
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
+	}
+
+	public function reativarJogo($id){
+		$sql = "SELECT * FROM jogos WHERE id=?";
+		$sql = $this->pdo->prepare($sql);
+		$sql->bindParam(1,$id, PDO::PARAM_INT);
+		$sql->execute();
+		$data = array();
+		if ($sql->rowCount()>0){
+            $data = $sql->fetch();
+            $this->id = $data['id'];
+            $this->nome_jogo = $data['nome_jogo'];
+            $this->data_inicio = $data['data_inicio'];
+            $this->data_fim = $data['data_fim'];
+            $this->tipo_jogo = $data['tipo_jogo'];
+            $this->valor_minimo = $data['valor_minimo'];
+            $this->palpites_disponiveis = $data['palpites_disponiveis'];
+            $this->status = $data['status'];
+			$this->ativo = $data['ativo'];
+			if($this->ativo == 0){
+				$this->ativo = 1;
+				$this->salvar();
+				return true;	
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
+	}
+	
     
 
     /* 

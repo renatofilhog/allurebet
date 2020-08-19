@@ -55,8 +55,8 @@
                                 <li><a href="/admin/jogo/"><i class="menu-icon icon-plus"></i>Criar Jogo</a></li>
                                 <li><a href="/admin/gerjogos/"><i class="menu-icon icon-inbox"></i>Gerenciar jogos</a></li>
                                 
-                                <li><a href="/admin/verjogos/"><i class="menu-icon icon-th-list"></i>Ver finalizados
-                                    <b class="label green pull-right">NºDEJOGOS</b>
+                                <li><a href="/admin/verjogos/"><i class="menu-icon icon-th-list"></i>Ver inativos
+                                    <b class="label gray pull-right"><?php echo $_SESSION['infomenu']['n_inativos']; ?></b>
                                 </a></li>
 
                             </ul>
@@ -102,6 +102,21 @@
         <script src="<?php echo BASEURL;?>/assets/js/script.js" type="text/javascript"></script>
         <script src="<?php echo BASEURL;?>/assets/scripts/common.js" type="text/javascript"></script>
         
-
+        <?php
+        
+        // todas as variáveis.
+        /*
+        echo "<pre>";
+        print_r(get_defined_vars());
+        echo "</pre>";
+        */
+        
+        // todas as SESSION.
+        /*
+        echo "<pre>";
+        print_r($_SESSION);
+        echo "</pre>";
+        */
+        ?>
     </body>
 </html>

@@ -19,6 +19,7 @@ class homeController extends Controller {
 			'n_usuarios' => $n_usuarios->contarUsuarios(),
 			'n_jogos_andamento' => $n_jogos->contarJogos(1)
 		);
+		$_SESSION['infomenu']['n_inativos'] = $n_jogos->contarJogosAI(0);
 		$titles = array('ti1' => "Jogo do Bicho");
 		$this->loadTemplate('admin', $data,$titles);
 	}

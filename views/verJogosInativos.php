@@ -3,7 +3,7 @@
     <div class="module">
         <div class="module">
             <div class="module-head">
-                <h3>Jogos não iniciados e Em Andamento</h3>
+                <h3>Jogos inativos</h3>
             </div>
             
             <div class="module-body table">
@@ -26,7 +26,7 @@
                             <th>Data de Fim</th>
                             <th>Tipo de Jogo</th>
                             <th>Valor Mínimo</th>
-                            <th>Status</th>
+                            <th>Estagnou em:</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -47,16 +47,8 @@
                                                     Editar
                                                 </a>
                                                 
-                                                <a class="btn btn-success btn-sm" onclick="location.href = '/jogos/iniciar?id=<?php echo $valor['id']; ?>';">
-                                                    Iniciar
-                                                </a>
-                                                
-                                                <a class="btn btn-info btn-sm" onclick="location.href = '/jogos/finalizar?id=<?php echo $valor['id']; ?>';"">
-                                                    Finalizar
-                                                </a>
-                                                
-                                                <a class="btn btn-secondary btn-sm" onclick="location.href = '/jogos/inativar?id=<?php echo $valor['id']; ?>';"">
-                                                    Inativar
+                                                <a class="btn btn-info btn-sm" onclick="location.href = '/jogos/reativar?id=<?php echo $valor['id']; ?>';">
+                                                    Re-Ativar
                                                 </a>
                                         </ul>
                                     </td>
@@ -88,7 +80,7 @@
                             <th>Data de Fim</th>
                             <th>Tipo de Jogo</th>
                             <th>Valor Mínimo</th>
-                            <th>Status</th>    
+                            <th>Estagnou em:</th>    
                         </tr>
                     </tfoot>
                 </table>

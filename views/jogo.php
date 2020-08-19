@@ -11,20 +11,21 @@
                         <button type="button" class="close" data-dismiss="alert">×</button>
                         <strong>Atenção!</strong> Preencha todos os campos!.
                     </div>
-                <?php endif; ?>
+                <?php $_SESSION['msg']['cadastro_jogo'] = 0; endif; ?>
+                
                 <?php if(isset($_SESSION['msg']['cadastro_jogo']) && $_SESSION['msg']['cadastro_jogo'] == 1): ?>
                     <div class="alert alert-success">
                         <button type="button" class="close" data-dismiss="alert">×</button>
                         <strong>Jogo Criado!</strong> Verifique a área de gerenciamento para maior detalhe
                     </div>
-                <?php endif; ?>
+                <?php $_SESSION['msg']['cadastro_jogo'] = 0; endif; ?>
 
                 <?php if(isset($_SESSION['msg']['cadastro_jogo']) && $_SESSION['msg']['cadastro_jogo'] == 2): ?>
-                       <div class="alert alert-error">
-                            <button type="button" class="close" data-dismiss="alert">×</button>
-                            <strong>Error!</strong> <?php echo $_SESSION['msg']['cadastro_jogo_error']; ?>
-                        </div>
-                <?php endif; ?>
+                    <div class="alert alert-error">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        <strong>Error!</strong> <?php echo $_SESSION['msg']['cadastro_jogo_error']; ?>
+                    </div>
+                <?php $_SESSION['msg']['cadastro_jogo'] = 0; endif; ?>
 
                     <br />
 

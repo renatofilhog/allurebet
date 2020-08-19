@@ -22,9 +22,17 @@ class adminController extends Controller {
     public function gerjogos(){
         $data = array();
         $j = new Jogos();
-        $data['allgames'] = $j->trazerTodos();
+        $data['allgames'] = $j->trazerTodos(1);
         $titles = array("ti1"=>"Gerenciar jogos");
         $this->loadTemplate("gerjogos",$data,$titles);
+    }
+
+    public function verjogos(){
+        $data = array();
+        $j = new Jogos();
+        $data['allgames'] = $j->trazerTodos(0);
+        $titles = array("ti1"=>"Gerenciar jogos");
+        $this->loadTemplate("verJogosInativos",$data,$titles);
     }
 
 }
