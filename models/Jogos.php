@@ -16,13 +16,23 @@ class Jogos extends model {
     private $ativo;
 
 
-	public function trazerTodos($ativo){
-		$sql = "SELECT * FROM jogos WHERE ativo=$ativo";
-		$sql = $this->pdo->query($sql);
-		if($sql->rowCount()>0){
-			return $sql->fetchAll();
+	public function trazerTodos($ativo, $status=""){
+		if(empty($status)){
+			$sql = "SELECT * FROM jogos WHERE ativo=$ativo";
+			$sql = $this->pdo->query($sql);
+			if($sql->rowCount()>0){
+				return $sql->fetchAll();
+			} else {
+				return "Não há resultados";
+			}
 		} else {
-			return "Não há resultados";
+			$sql = "SELECT * FROM jogos WHERE ativo=$ativo AND status=$status";
+			$sql = $this->pdo->query($sql);
+			if($sql->rowCount()>0){
+				return $sql->fetchAll();
+			} else {
+				return "Não há resultados";
+			}
 		}
 	}
 

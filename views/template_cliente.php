@@ -27,7 +27,6 @@
                                 <i class="icon-user"></i>
                                 <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#">Seu perfil</a></li>
                                     <li><a href="#">Editar seu perfil</a></li>
                                     <li class="divider"></li>
                                     <li><a href="/acoes/logout">Sair</a></li>
@@ -51,8 +50,8 @@
                         <div class="sidebar">
                             <ul class="widget widget-menu unstyled">
                                 <li class="active"><a href="/home/cliente"><i class="menu-icon icon-home"></i>Inicio</a></li>
-                                <li><a href="#"><i class="menu-icon icon-plus"></i>Fazer aposta</a></li>
-                                <li><a href="#"><i class="menu-icon icon-th-list"></i>Ver Apostas
+                                <li><a href="/cliente/verjogos/"><i class="menu-icon icon-plus"></i>Fazer aposta</a></li>
+                                <li><a href="/cliente/ver_apostas/"><i class="menu-icon icon-th-list"></i>Ver Apostas
                                     <b class="label green pull-right">NºDEJOGOS</b>
                                 </a></li>
 
