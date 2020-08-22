@@ -2,7 +2,7 @@
 // Definindo constante do criador do sistema
 define("CRIADOR_DO_SISTEMA","Renato Filho");
 // Ambiente de desenvolvimento
-define("ENVIRONMENT","development");
+define("ENVIRONMENT","prodution");
 // Configuração de Constantes para os casos
 
 if (ENVIRONMENT == "development") {
@@ -16,6 +16,6 @@ if (ENVIRONMENT == "development") {
 	define("HOST","mysql669.umbler.com");
 	define("DBUSER","bicho");
 	define("DBPASS","bicho123");
-	define("BASEURL","http://jogodobicho.com");
+	define("BASEURL","http://alluredevelopment.co");
 }
 ?>
