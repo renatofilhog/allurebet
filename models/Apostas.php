@@ -13,6 +13,14 @@ class Apostas extends model {
 	private $valor;
 	private $bilhete;
 
+    public function trazerApostados($id){
+        $sql = "SELECT * FROM apostas WHERE id_usuario=$id";
+        $sql = $this->pdo->query($sql);
+            if($sql->rowCount()>0){
+                return $sql->fetchAll();
+            }
+    }
+
 	public function salvar(){
 		if (isset($this->id) && !empty($this->id)){
 			//Update

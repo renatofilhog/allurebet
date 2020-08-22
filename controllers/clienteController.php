@@ -20,5 +20,15 @@ class clienteController extends Controller {
         $titles = array("ti1"=>"Ver jogos");
         $this->loadTemplate2("cliente_jogos",$data,$titles);
     }
+    // /cliente/ver_apostas/
+    public function ver_apostas(){
+    	$data = array();
+        $a = new Apostas();
+        $data['apostas_usuario'] = $a->trazerApostados($_SESSION['dadosusuario']['idusuario']);
+
+        $titles = array("ti1"=>"Ver apostas");
+        $this->loadTemplate2("cliente_apostas",$data,$titles);
+
+    }
 }
 ?>
