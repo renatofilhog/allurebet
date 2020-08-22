@@ -232,13 +232,40 @@ class acoesController extends Controller {
 
     
     public function apostar(){
+        if(isset($_POST['palpite']) && $_POST['palpite'] != 99){
+            $palpite = addslashes($_POST['palpite']);
+        } else {
+            $_SESSION['msg']['aposta'] = 3;
+            $_SESSION['msg']['aviso'] = "<strong>Nada feito!</strong> Selecione algum palpite.";
+            header("Location: /jogos/apostar?id=".$_SESSION['dadosjogo']['id']);
+        }
+        if (isset($_POST['valor']) && !empty($_POST['valor'])) {
+            $valor = addslashes($_POST['valor']);
+            $valor_minimo = $_SESSION['dadosjogo']['valor_minimo'];
+            if ($valor < $valor_minimo-0.001) {
+                $_SESSION['msg']['aposta'] = 3;
+                $_SESSION['msg']['aviso'] = "<strong>Nada feito!</strong> valor de aposta mínimo é maior que o valor do palpite.";
+                header("Location: /jogos/apostar?id=".$_SESSION['dadosjogo']['id']);
+            }
+        }
         echo "Estamos indo bem";
-        echo "<pre>";
-        print_r($_POST);
-        echo "</pre>";
-        echo "<pre>";
-        print_r($_SESSION);
-        echo "</pre>";
+        $a = new Apostas();
+
+        $a->setId_usuario($_SESSION['dadosusuario']['idusuario']);
+        $a->setId_jogo($_SESSION['dadosjogo']['id']);
+        $a->setPalpite($palpite);
+        $a->setValor($valor);
+            $bilhete = $_SESSION['dadosusuario']['idusuario'].$_SESSION['dadosjogo']['id'].time();
+        $a->setBilhete($bilhete);
+
+        if($a->salvar()){
+            $_SESSION['msg']['aposta'] = 1;
+            header("Location: /jogos/apostar?id=".$_SESSION['dadosjogo']['id']);
+        } else {
+            $_SESSION['msg']['aposta'] = 3;
+            $_SESSION['msg']['aviso'] = "<strong>Nada feito!</strong> Algo deu errado ao salvar";
+            header("Location: /jogos/apostar?id=".$_SESSION['dadosjogo']['id']);
+        }
 
 
     }

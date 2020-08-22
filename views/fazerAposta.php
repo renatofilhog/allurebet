@@ -6,26 +6,26 @@
                 <h3>Fazer aposta</h3>
             </div>
             <div class="module-body">
-                <?php if(!isset($_SESSION['msg']['edit_jogo']) || $_SESSION['msg']['edit_jogo'] == 0): ?>
+                <?php if(!isset($_SESSION['msg']['aposta']) || $_SESSION['msg']['aposta'] == 0): ?>
                     <div class="alert">
                         <button type="button" class="close" data-dismiss="alert">×</button>
                         <strong>Atenção!</strong> Verifique o valor mínimo antes de enviar.
                     </div>
-                <?php $_SESSION['msg']['edit_jogo'] = 0; endif; ?>
+                <?php $_SESSION['msg']['aposta'] = 0; endif; ?>
                 
-                <?php if(isset($_SESSION['msg']['edit_jogo']) && $_SESSION['msg']['edit_jogo'] == 1): ?>
+                <?php if(isset($_SESSION['msg']['aposta']) && $_SESSION['msg']['aposta'] == 1): ?>
                     <div class="alert alert-success">
                         <button type="button" class="close" data-dismiss="alert">×</button>
-                        <strong>Jogo editado!</strong> Verifique a área de gerenciamento para maiores detalhes
+                        <strong>Aposta feita!</strong> Verifique o menu Ver Apostas para maiores detalhes
                     </div>
-                <?php $_SESSION['msg']['edit_jogo'] = 0; endif; ?>
+                <?php $_SESSION['msg']['aposta'] = 0; endif; ?>
 
-                <?php if(isset($_SESSION['msg']['edit_jogo']) && $_SESSION['msg']['edit_jogo'] == 2): ?>
+                <?php if(isset($_SESSION['msg']['aposta']) && $_SESSION['msg']['aposta'] == 3): ?>
                     <div class="alert alert-error">
                         <button type="button" class="close" data-dismiss="alert">×</button>
-                        <strong>Error!</strong> Algo deu errado!
+                        <?php echo $_SESSION['msg']['aviso'] ?>
                     </div>
-                <?php $_SESSION['msg']['edit_jogo'] = 0; endif; ?>
+                <?php $_SESSION['msg']['aposta'] = 0; endif; ?>
 
                     <br />
 
@@ -62,7 +62,9 @@
                             </div>
                         </div>
                         <?php 
-                          $_SESSION['dadosjogo']['id'] = $dadosjogo['id'];  
+                          $_SESSION['dadosjogo']['id'] = $dadosjogo['id'];
+                          $_SESSION['dadosjogo']['valor_minimo'] = str_replace(",", ".", $dadosjogo['valor_minimo']);
+
                         ?>
                         <!-- Botao submit  -->
                         <div class="control-group">
