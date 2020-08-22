@@ -231,6 +231,19 @@ class acoesController extends Controller {
     }
 
     
+    public function apostar(){
+        echo "Estamos indo bem";
+        echo "<pre>";
+        print_r($_POST);
+        echo "</pre>";
+        echo "<pre>";
+        print_r($_SESSION);
+        echo "</pre>";
+
+
+    }
+
+
 
 }
 

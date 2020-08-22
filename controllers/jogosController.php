@@ -108,6 +108,25 @@ class jogosController extends Controller {
             header("Location: /home/");
 
         }
-
     }
+
+    public function apostar(){
+        if(isset($_GET['id']) && !empty($_GET['id'])){
+            $id = addslashes($_GET['id']);
+            $j = new Jogos();
+            $data["dadosjogo"] = $j->consultarId($id);
+            $data['dadosjogo']['data_fim'] = date("d/m/Y", strtotime($data['dadosjogo']['data_fim']));
+            $data['palpites'] = explode(",", $j->getPalpites_disponiveis());
+            $titles = array("ti1"=>"Fazer aposta");
+            $this->loadTemplate2("fazerAposta",$data,$titles);
+        
+        } else {
+            echo "<script>alert('algo deu errado');</script>";
+            header("Location: /home/");
+        }
+    }
+
+
+
+
 }
