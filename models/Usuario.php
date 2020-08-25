@@ -1,13 +1,24 @@
 <?php
 // Classe criada anteriormente em outros módulos, foi re-adaptada
-// Nivel acesso: 1 = Administrador / 0 = Cliente;
+// Nivel acesso: 1 = Administrador / 0 = Cliente / 2 = Gerente / 3 = Promotor / 4 = Banca;
 
 
 class Usuario extends model {
 	private $id;
+	private $cpf;
+	private $cnpj;
 	private $nome;
 	private $email;
 	private $senha;
+	private $telefone;
+	private $estado;
+	private $cidade;
+	private $cep;
+	private $logradouro;
+	private $numero;
+	private $bairro;
+	private $complemento;
+	private $dinheiro;
 	private $nivel_acesso;
 
 	public function trazerTodos(){
@@ -51,30 +62,90 @@ class Usuario extends model {
 	public function salvar(){
 		if (isset($this->id) && !empty($this->id)){
 			//Update
-			$sql = "UPDATE usuarios SET nome=?, email=?, senha=?, nivel_acesso=? WHERE id=?";
+			$sql = "UPDATE usuarios SET nome=?, email=?, senha=?, nivel_acesso=?, cpf=?, cnpj=?, telefone=?, estado=?, cidade=?, cep=?, logradouro=?, numero=?, bairro=?, complemento=?, dinheiro=? WHERE id=?";
 			$sql = $this->pdo->prepare($sql);
 			$sql->bindParam(1,$this->nome, PDO::PARAM_STR);
 			$sql->bindParam(2,$this->email, PDO::PARAM_STR);
 			$sql->bindParam(3,$this->senha, PDO::PARAM_STR);
 			$sql->bindParam(4,$this->nivel_acesso, PDO::PARAM_INT);
-			$sql->bindParam(5,$this->id, PDO::PARAM_INT);
-			//$sql->execute(array($this->nome,$this->email,$this->senha,$this->id));
+			$sql->bindParam(5,$this->cpf, PDO::PARAM_INT);
+			$sql->bindParam(6,$this->cnpj, PDO::PARAM_INT);
+			$sql->bindParam(7,$this->telefone, PDO::PARAM_INT);
+			$sql->bindParam(8,$this->estado, PDO::PARAM_STR);
+			$sql->bindParam(9,$this->cidade, PDO::PARAM_STR);
+			$sql->bindParam(10,$this->cep, PDO::PARAM_INT);
+			$sql->bindParam(11,$this->logradouro, PDO::PARAM_STR);
+			$sql->bindParam(12,$this->numero, PDO::PARAM_STR);
+			$sql->bindParam(13,$this->bairro, PDO::PARAM_STR);
+			$sql->bindParam(14,$this->complemento, PDO::PARAM_STR);
+			$sql->bindParam(15,$this->dinheiro, PDO::PARAM_INT);
+			$sql->bindParam(16,$this->id, PDO::PARAM_INT);
 			if($sql->execute()){
 				return true;
 			} else {
 				return false;
 			}
 
-		} else if (isset($this->nome) && isset($this->email) && isset($this->senha) && !empty($this->nome) && !empty($this->email) && !empty($this->senha)) {
-			//Insert
-			$sql = "INSERT INTO usuarios SET nome=?, email=?, senha=?";
-			$sql = $this->pdo->prepare($sql);
-			if($sql->execute(array($this->nome,$this->email,$this->senha))){
-				$this->id = $this->pdo->lastInsertId();
-				$this->nivelAcesso = 0;
-				return true;
+		} else if (
+			isset($this->nome) && !empty($this->nome)
+			&& isset($this->senha) && !empty($this->senha)
+			&& isset($this->email) && !empty($this->email)
+			&& isset($this->telefone) && !empty($this->telefone)
+			&& isset($this->estado) && !empty($this->estado)
+			&& isset($this->cidade) && !empty($this->cidade)
+			&& isset($this->cep) && !empty($this->cep)
+			&& isset($this->logradouro) && !empty($this->logradouro)
+			&& isset($this->numero) && !empty($this->numero)
+			&& isset($this->bairro) && !empty($this->bairro)
 
+		) {
+			//Insert
+			$sql = "INSERT INTO usuarios SET".
+			" cpf=:cpf, cnpj=:cnpj, nome=:nome, email=:email,".
+			" senha=:senha, telefone=:telefone, estado=:estado,".
+			" cidade=:cidade, cep=:cep, logradouro=:logradouro,".
+			" numero=:numero, bairro=:bairro, complemento=:complemento,".
+			" nivel_acesso=:nivel_acesso";
+			$sql = $this->pdo->prepare($sql);
+			if(isset($this->cpf) && !empty($this->cpf)){
+				$sql->bindValue(":cpf",$this->cpf, PDO::PARAM_INT);
 			} else {
+				$sql->bindValue(":cpf",null);
+			}
+
+			if(isset($this->cnpj) && !empty($this->cnpj)){
+				$sql->bindValue(":cnpj",$this->cnpj, PDO::PARAM_INT);
+			} else {
+				$sql->bindValue(":cnpj",null);
+			}
+			
+			$sql->bindValue(":nome",$this->nome, PDO::PARAM_STR);
+			$sql->bindValue(":email",$this->email, PDO::PARAM_STR);
+			$sql->bindValue(":senha",$this->senha, PDO::PARAM_STR);
+			$sql->bindValue(":telefone",$this->telefone, PDO::PARAM_INT);
+			$sql->bindValue(":estado",$this->estado, PDO::PARAM_STR);
+			$sql->bindValue(":cidade",$this->cidade, PDO::PARAM_STR);
+			$sql->bindValue(":cep",$this->cep, PDO::PARAM_INT);
+			$sql->bindValue(":logradouro",$this->logradouro, PDO::PARAM_STR);
+			$sql->bindValue(":numero",$this->numero, PDO::PARAM_STR);
+			$sql->bindValue(":bairro",$this->bairro, PDO::PARAM_STR);
+
+			if(isset($this->complemento) && !empty($this->complemento)){
+				$sql->bindValue(":complemento",$this->complemento, PDO::PARAM_STR);
+			} else {
+				$sql->bindValue(":complemento",null);
+			}
+			
+			$sql->bindValue(":nivel_acesso",$this->nivel_acesso, PDO::PARAM_INT);
+			echo "<pre>";
+            print_r($sql);
+            echo "</pre>";
+			if( $sql->execute() ){
+				$this->id = $this->pdo->lastInsertId();
+				echo "Aqui nd";
+				return true;
+			} else {
+				echo "Aqui sim";
 				return false;
 			}
 		} 
@@ -110,6 +181,28 @@ class Usuario extends model {
 		return false;
 	}
 
+	public function consultarCpf($cpf){
+		$sql = "SELECT * FROM usuarios WHERE cpf=?";
+		$sql = $this->pdo->prepare($sql);
+		$sql->bindParam(1,$cpf, PDO::PARAM_STR);
+		$sql->execute();
+		if ($sql->rowCount()>0){
+			return true;
+		}
+		return false;
+	}
+
+	public function consultarEmail($email){
+		$sql = "SELECT * FROM usuarios WHERE email=?";
+		$sql = $this->pdo->prepare($sql);
+		$sql->bindParam(1,$email, PDO::PARAM_STR);
+		$sql->execute();
+		if ($sql->rowCount()>0){
+			return true;
+		}
+		return false;
+	}
+
 
 
 
@@ -122,36 +215,128 @@ class Usuario extends model {
 		return $this->id;
 	}
 
+	public function setId($id){
+		$this->id = $id;
+	}
+
+	public function getCpf(){
+		return $this->cpf;
+	}
+
+	public function setCpf($cpf){
+		$this->cpf = $cpf;
+	}
+
+	public function getCnpj(){
+		return $this->cnpj;
+	}
+
+	public function setCnpj($cnpj){
+		$this->cnpj = $cnpj;
+	}
+
 	public function getNome(){
 		return $this->nome;
 	}
 
-	public function setNome($n){
-		$this->nome = $n;
+	public function setNome($nome){
+		$this->nome = $nome;
 	}
-	
+
 	public function getEmail(){
 		return $this->email;
 	}
-	
-	public function setEmail($e){
-		$this->email = $e;
-	}
 
-	public function getNivelAcesso(){
-		return $this->nivel_acesso;
-	}
-
-	public function setNivelAcesso($na){
-		$this->nivel_acesso = $na;
+	public function setEmail($email){
+		$this->email = $email;
 	}
 
 	public function getSenha(){
 		return $this->senha;
 	}
 
-	public function setSenha($s){
-		$this->senha = $s;
+	public function setSenha($senha){
+		$this->senha = $senha;
+	}
+
+	public function getTelefone(){
+		return $this->telefone;
+	}
+
+	public function setTelefone($telefone){
+		$this->telefone = $telefone;
+	}
+
+	public function getEstado(){
+		return $this->estado;
+	}
+
+	public function setEstado($estado){
+		$this->estado = $estado;
+	}
+
+	public function getCidade(){
+		return $this->cidade;
+	}
+
+	public function setCidade($cidade){
+		$this->cidade = $cidade;
+	}
+
+	public function getCep(){
+		return $this->cep;
+	}
+
+	public function setCep($cep){
+		$this->cep = $cep;
+	}
+
+	public function getLogradouro(){
+		return $this->logradouro;
+	}
+
+	public function setLogradouro($logradouro){
+		$this->logradouro = $logradouro;
+	}
+
+	public function getNumero(){
+		return $this->numero;
+	}
+
+	public function setNumero($numero){
+		$this->numero = $numero;
+	}
+
+	public function getBairro(){
+		return $this->bairro;
+	}
+
+	public function setBairro($bairro){
+		$this->bairro = $bairro;
+	}
+
+	public function getComplemento(){
+		return $this->complemento;
+	}
+
+	public function setComplemento($complemento){
+		$this->complemento = $complemento;
+	}
+
+	public function getDinheiro(){
+		return $this->dinheiro;
+	}
+
+	public function setDinheiro($dinheiro){
+		$this->dinheiro = $dinheiro;
+	}
+
+	public function getNivel_acesso(){
+		return $this->nivel_acesso;
+	}
+
+	public function setNivel_acesso($nivel_acesso){
+		$this->nivel_acesso = $nivel_acesso;
 	}
 	
 	/* 

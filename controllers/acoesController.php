@@ -39,47 +39,113 @@ class acoesController extends Controller {
 	}
 
 	public function registro(){
-        if(isset($_POST['email']) && !empty($_POST['email']) && isset($_POST['senha']) && !empty($_POST['senha']) && isset($_POST['nome']) && !empty($_POST['nome']) && isset($_POST['re-senha']) && !empty($_POST['re-senha'])){ 
-            $nome = addslashes($_POST['nome']);
-            $email = addslashes($_POST['email']);
+        $u = new Usuario();
+        if(isset($_POST['cpf']) && !empty($_POST['cpf'])){
+            $cpf = str_replace(".", "", $_POST['cpf']);
+            $cpf = str_replace("-", "", $cpf);
+            $cpf = addslashes($cpf);
+            if ($u->consultarCpf($cpf)) {
+                header("Location: /home/index?msg=1");
+            }
+            $u->setCpf($cpf);
+        }
+
+        if (isset($_POST['senha']) && !empty($_POST['senha']) && isset($_POST['re-senha']) && !empty($_POST['re-senha']) ) {
             $senha = md5(addslashes($_POST['senha']));
             $re_senha = md5(addslashes($_POST['re-senha']));
-            if ($senha == $re_senha){
-                $u = new Usuario();
-                $u->setNome($nome);
-                $u->setEmail($email);
-                $u->setSenha($senha);
-                $bol = $u->salvar();
-                if($bol){
-                    if($u->getNivelAcesso == 1){
-                        // pegando dados do usuário
-                        $_SESSION['dadosusuario']['idusuario'] = $u->getId();
-                        $_SESSION['dadosusuario']['nome'] = $u->getNome();
-                        $_SESSION['dadosusuario']['email'] = $u->getEmail();
-                        $_SESSION['dadosusuario']['nivel_acesso'] = $nivel_acesso;
-                        echo "Ok";
-                        header("Location: /home/admin");
-                    } elseif($u->getNivelAcesso == 0){
-                        // pegando dados do usuário
-                        $_SESSION['dadosusuario']['idusuario'] = $u->getId();
-                        $_SESSION['dadosusuario']['nome'] = $u->getNome();
-                        $_SESSION['dadosusuario']['email'] = $u->getEmail();
-                        $_SESSION['dadosusuario']['nivel_acesso'] = $nivel_acesso;
-            
-                        header("Location: /home/cliente");
-                    }
+                if ($senha == $re_senha){
+                    $u->setSenha($senha);
                 } else {
-                    echo "<script>alert('Algo deu errado ao cadastrar');window.location.href = ".BASEURL.";</script>";    
+                    header("Location: /home/index?msg=3");
                 }
-
-            } else {
-                echo "<script>alert('Senhas não conferem');window.location.href = ".BASEURL.";</script>";    
-            }
-        } else {
-            echo "<script>alert('Verifique todos os campos');window.location.href = ".BASEURL.";</script>";
-
         }
-        echo "Não entre aqui";
+
+        if(isset($_POST['email']) && !empty($_POST['email'])) { 
+            $email = addslashes($_POST['email']);
+            if($u->consultarEmail($email)){
+                header("Location: /home/index?msg=2");
+            }
+            $u->setEmail($email);
+        }
+
+        if(isset($_POST['nivel_acesso']) && $_POST['nivel_acesso'] != 99 ){
+            // Var Padrão de Cliente;
+            $u->setNivel_acesso($nivel_acesso);    
+        } else {
+            // Var Padrão de Cliente;
+            $u->setNivel_acesso(0);
+        }   
+
+        if (
+            isset($_POST['nome']) && !empty($_POST['nome'])
+            && isset($_POST['telefone']) && !empty($_POST['telefone'])
+            && isset($_POST['cep']) && !empty($_POST['cep'])
+            && isset($_POST['logradouro']) && !empty($_POST['logradouro'])
+            && isset($_POST['bairro']) && !empty($_POST['bairro'])
+            && $_POST['estado'] != 99 && !empty($_POST['estado'])
+            && isset($_POST['numero']) && !empty($_POST['numero'])
+        ) {
+
+            //Tratamentos e Afins de dados
+            $cep = str_replace(".", "", $_POST['cep']);            
+            $cep = str_replace("-", "", $cep);
+            $cep = addslashes($cep);
+            $u->setCep($cep);
+            
+            
+            $telefone = str_replace(" ", "", $_POST['telefone']);
+            $telefone = str_replace("(", "", $telefone);
+            $telefone = str_replace(")", "", $telefone);
+            $telefone = str_replace("-", "", $telefone);
+            $telefone = addslashes($telefone);
+            $u->setTelefone($telefone);
+            
+            $nome = addslashes($_POST['nome']);
+            $u->setNome($nome);
+            
+            $logradouro = addslashes($_POST['logradouro']);
+            $u->setLogradouro($logradouro);
+            
+            $bairro = addslashes($_POST['bairro']);
+            $u->setBairro($bairro);
+            
+            $numero = addslashes($_POST['numero']);
+            $u->setNumero($numero);
+            
+            if(isset($_POST['complemento']) && !empty($_POST['comlemento'])){
+                $comlemento = addslashes($_POST['comlemento']);
+                $u->setComplemento($complemento);
+            }
+            $estado = addslashes($_POST['estado']);
+            $u->setEstado($estado);
+            
+            $cidade = addslashes($_POST['cidade']);
+            $u->setCidade($cidade);
+            echo "<pre>";
+            print_r(get_defined_vars());
+            echo "</pre>";
+            if($u->salvar()){
+                if($u->getNivel_acesso >= 1){
+                    // pegando dados do usuário
+                    $_SESSION['dadosusuario']['idusuario'] = $u->getId();
+                    $_SESSION['dadosusuario']['nome'] = $u->getNome();
+                    $_SESSION['dadosusuario']['email'] = $u->getEmail();
+                    $_SESSION['dadosusuario']['nivel_acesso'] = $u->getNivel_acesso();
+                    echo "Ok";
+                    header("Location: /home/admin");
+                } elseif($u->getNivel_acesso == 0){
+                    // pegando dados do usuário
+                    $_SESSION['dadosusuario']['idusuario'] = $u->getId();
+                    $_SESSION['dadosusuario']['nome'] = $u->getNome();
+                    $_SESSION['dadosusuario']['email'] = $u->getEmail();
+                    $_SESSION['dadosusuario']['nivel_acesso'] = $u->getNivel_acesso();
+        
+                    header("Location: /home/cliente");
+                }
+            } else {
+                echo "<script>alert('Algo deu errado ao cadastrar');window.location.href = ".BASEURL.";</script>";    
+            }
+        }      
     }
 
     public function logout(){
