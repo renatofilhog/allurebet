@@ -23,8 +23,8 @@
                         <tr>
                             <th>Nome</th>
                             <th>Email</th>
-                            <th>CPF</th>
-                            <th>RG</th>
+                            <th>Tipo de Pessoa</th>
+                            <th>CPF/CNPJ</th>
                             <th>Telefone</th>
                             <th>Permissão</th>  
                         </tr>
@@ -49,9 +49,9 @@
                                         </ul>
                                     </td>
                                     <td><?php echo $valor['email'] ?></td>
-                                    <td>123.456.789-00<?php //echo $valor['cpf'] ?></td>
-                                    <td>2000456963<?php //echo $valor['rg'] ?></td>
-                                    <td>(85) 9 9525-6354<?php //echo $valor['telefone'] ?></td>
+                                    <td><?php if($valor['tppessoa']=="pf"){echo "Física";} elseif($valor['tppessoa']=="pj") {echo "Jurídica";} else{echo "Nao definido";} ?></td>
+                                    <td><?php if($valor['tppessoa']=="pf"){echo $valor['cpf'];} elseif($valor['tppessoa']=="pj") {echo $valor['cnpj'];} else{echo "Nao definido";} ?></td>
+                                    <td><span class="telefone"><?php echo $valor['telefone'] ?></span></td>
                                     <td>
                                         <?php 
                                             // Status: 0 = Pendente / 1 = Em andamento / 2 = Finalizado
@@ -78,6 +78,10 @@
                         </tr>
                     </tfoot>
                 </table>
+                
+                <a href="/usuarios/novo/" class="span btn btn-success"><i class="menu-icon icon-user"></i>Criar usuário</a>
+                <hr>
+                
             </div>
         </div><!--/.module-->
     </div><!--/.content-->
@@ -90,5 +94,9 @@
 			$('.dataTables_paginate > a').wrapInner('<span />');
 			$('.dataTables_paginate > a:first-child').append('<i class="icon-chevron-left shaded"></i>');
 			$('.dataTables_paginate > a:last-child').append('<i class="icon-chevron-right shaded"></i>');
+
+            $('.telefone').mask('(00) 0 0000-0000');
+            $('.CEP').mask('00.000-000');
+            $('.CPF').mask('000.000.000-00', {reverse: true});
 		} );
 </script>

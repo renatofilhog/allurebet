@@ -2,8 +2,8 @@
 // Definindo constante do criador do sistema
 define("CRIADOR_DO_SISTEMA","Renato Filho");
 // Ambiente de desenvolvimento
-//define("ENVIRONMENT","development");
-define("ENVIRONMENT","prodution");
+define("ENVIRONMENT","development");
+//define("ENVIRONMENT","prodution");
 // Configuração de Constantes para os casos
 
 if (ENVIRONMENT == "development") {

@@ -48,3 +48,18 @@ $(document).ready(function(){
 
 
 });
+
+
+function tppessoa(){
+    if( $("#tppessoa").val() == "pf" ){
+
+        $("#cnpj").attr("disabled","disabled");
+        $("#cpf").removeAttr("disabled");
+    }
+
+    if( $("#tppessoa").val() == "pj" ){
+
+        $("#cpf").attr("disabled","disabled");
+        $("#cnpj").removeAttr("disabled");
+    }
+}

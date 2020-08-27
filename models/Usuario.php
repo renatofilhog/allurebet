@@ -70,8 +70,8 @@ class Usuario extends model {
 			$sql->bindParam(2,$this->email, PDO::PARAM_STR);
 			$sql->bindParam(3,$this->senha, PDO::PARAM_STR);
 			$sql->bindParam(4,$this->nivel_acesso, PDO::PARAM_INT);
-			$sql->bindParam(5,$this->cpf, PDO::PARAM_INT);
-			$sql->bindParam(6,$this->cnpj, PDO::PARAM_INT);
+			$sql->bindParam(5,$this->cpf, PDO::PARAM_STR);
+			$sql->bindParam(6,$this->cnpj, PDO::PARAM_STR);
 			$sql->bindParam(7,$this->telefone, PDO::PARAM_INT);
 			$sql->bindParam(8,$this->estado, PDO::PARAM_STR);
 			$sql->bindParam(9,$this->cidade, PDO::PARAM_STR);
@@ -111,13 +111,13 @@ class Usuario extends model {
 			" nivel_acesso=:nivel_acesso, tppessoa=:tppessoa";
 			$sql = $this->pdo->prepare($sql);
 			if(isset($this->cpf) && !empty($this->cpf)){
-				$sql->bindValue(":cpf",$this->cpf, PDO::PARAM_INT);
+				$sql->bindValue(":cpf",$this->cpf, PDO::PARAM_STR);
 			} else {
 				$sql->bindValue(":cpf",null);
 			}
 
 			if(isset($this->cnpj) && !empty($this->cnpj)){
-				$sql->bindValue(":cnpj",$this->cnpj, PDO::PARAM_INT);
+				$sql->bindValue(":cnpj",$this->cnpj, PDO::PARAM_STR);
 			} else {
 				$sql->bindValue(":cnpj",null);
 			}

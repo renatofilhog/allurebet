@@ -30,4 +30,11 @@ class usuariosController extends Controller {
         }
 
     }
+
+    public function novo(){
+        $data = array();
+        $titles = array("ti1"=>"Novo usuário");
+
+        $this->loadTemplate("novoUsuario",$data,$titles);
+    }
 }
