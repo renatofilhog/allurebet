@@ -20,6 +20,8 @@ class Usuario extends model {
 	private $complemento;
 	private $dinheiro;
 	private $nivel_acesso;
+	private $tppessoa;
+
 
 	public function trazerTodos(){
 		$sql = "SELECT * FROM usuarios";
@@ -62,7 +64,7 @@ class Usuario extends model {
 	public function salvar(){
 		if (isset($this->id) && !empty($this->id)){
 			//Update
-			$sql = "UPDATE usuarios SET nome=?, email=?, senha=?, nivel_acesso=?, cpf=?, cnpj=?, telefone=?, estado=?, cidade=?, cep=?, logradouro=?, numero=?, bairro=?, complemento=?, dinheiro=? WHERE id=?";
+			$sql = "UPDATE usuarios SET nome=?, email=?, senha=?, nivel_acesso=?, cpf=?, cnpj=?, telefone=?, estado=?, cidade=?, cep=?, logradouro=?, numero=?, bairro=?, complemento=?, dinheiro=?, tppessoa=? WHERE id=?";
 			$sql = $this->pdo->prepare($sql);
 			$sql->bindParam(1,$this->nome, PDO::PARAM_STR);
 			$sql->bindParam(2,$this->email, PDO::PARAM_STR);
@@ -79,7 +81,8 @@ class Usuario extends model {
 			$sql->bindParam(13,$this->bairro, PDO::PARAM_STR);
 			$sql->bindParam(14,$this->complemento, PDO::PARAM_STR);
 			$sql->bindParam(15,$this->dinheiro, PDO::PARAM_INT);
-			$sql->bindParam(16,$this->id, PDO::PARAM_INT);
+			$sql->bindParam(16,$this->tppessoa, PDO::PARAM_STR);
+			$sql->bindParam(17,$this->id, PDO::PARAM_INT);
 			if($sql->execute()){
 				return true;
 			} else {
@@ -105,7 +108,7 @@ class Usuario extends model {
 			" senha=:senha, telefone=:telefone, estado=:estado,".
 			" cidade=:cidade, cep=:cep, logradouro=:logradouro,".
 			" numero=:numero, bairro=:bairro, complemento=:complemento,".
-			" nivel_acesso=:nivel_acesso";
+			" nivel_acesso=:nivel_acesso, tppessoa=:tppessoa";
 			$sql = $this->pdo->prepare($sql);
 			if(isset($this->cpf) && !empty($this->cpf)){
 				$sql->bindValue(":cpf",$this->cpf, PDO::PARAM_INT);
@@ -129,6 +132,7 @@ class Usuario extends model {
 			$sql->bindValue(":logradouro",$this->logradouro, PDO::PARAM_STR);
 			$sql->bindValue(":numero",$this->numero, PDO::PARAM_STR);
 			$sql->bindValue(":bairro",$this->bairro, PDO::PARAM_STR);
+			$sql->bindValue(":tppessoa",$this->tppessoa, PDO::PARAM_STR);
 
 			if(isset($this->complemento) && !empty($this->complemento)){
 				$sql->bindValue(":complemento",$this->complemento, PDO::PARAM_STR);
@@ -176,6 +180,19 @@ class Usuario extends model {
 			$this->id = $data["id"];
 			$this->nivel_acesso = $data["nivel_acesso"];
 			$this->senha = $data["senha"];
+			$this->tppessoa = $data["tppessoa"];
+			$this->cpf = $data["cpf"];
+			$this->cnpj = $data["cnpj"];
+			$this->telefone = $data["telefone"];
+			$this->estado = $data["estado"];
+			$this->cidade = $data["cidade"];
+			$this->cep = $data["cep"];
+			$this->logradouro = $data["logradouro"];
+			$this->numero = $data["numero"];
+			$this->bairro = $data["bairro"];
+			$this->complemento = $data["complemento"];
+			$this->dinheiro = $data["dinheiro"];
+
 			return $data;
 		}
 		return false;
@@ -217,6 +234,14 @@ class Usuario extends model {
 
 	public function setId($id){
 		$this->id = $id;
+	}
+
+	public function getTppessoa(){
+		return $this->tppessoa;
+	}
+
+	public function setTppessoa($tppessoa){
+		$this->tppessoa = $tppessoa;
 	}
 
 	public function getCpf(){

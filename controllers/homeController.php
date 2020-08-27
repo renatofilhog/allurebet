@@ -27,6 +27,8 @@ class homeController extends Controller {
 	public function cliente(){
 		$data = array('nomeusuario' => $_SESSION['dadosusuario']['nome']);
 		$titles = array('ti1' => "Jogo de Apostas");
+		$n_apostas = new Apostas();
+		$_SESSION['n_apostas'] = $n_apostas->contarApostas($_SESSION['dadosusuario']['idusuario']);
 		$this->loadTemplate2('cliente', $data,$titles);
 	}
 }

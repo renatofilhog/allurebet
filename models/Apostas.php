@@ -20,6 +20,12 @@ class Apostas extends model {
                 return $sql->fetchAll();
             }
     }
+    public function contarApostas($id){
+        $sql = "SELECT * FROM apostas WHERE id_usuario=$id";
+        $sql = $this->pdo->query($sql);
+        return $sql->rowCount();
+            
+    }
 
 	public function salvar(){
 		if (isset($this->id) && !empty($this->id)){

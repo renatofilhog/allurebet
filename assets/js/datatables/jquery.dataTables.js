@@ -165,7 +165,7 @@
 		 * sZeroRecords - assuming that is given.
 		 */
 		if ( !oLanguage.sEmptyTable && oLanguage.sZeroRecords &&
-			oDefaults.sEmptyTable === "No data available in table" )
+			oDefaults.sEmptyTable === "Sem registros para mostrar" )
 		{
 			_fnMap( oLanguage, oLanguage, 'sZeroRecords', 'sEmptyTable' );
 		}
@@ -7974,7 +7974,7 @@
 		 *      } );
 		 *    } );
 		 */
-		"aLengthMenu": [ 10, 25, 50, 100 ],
+		"aLengthMenu": [ 5, 10, 15, 20, 25, 30, 40, 50 ],
 	
 	
 		/**
@@ -9305,7 +9305,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sEmptyTable": "No data available in table",
+			"sEmptyTable": "Sem registros para mostrar",
 		
 		
 			/**
@@ -9328,7 +9328,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sInfo": "Showing _START_ to _END_ of _TOTAL_ entries",
+			"sInfo": "Mostrando _START_ de _END_ do total de _TOTAL_ registros",
 		
 		
 			/**
@@ -9349,7 +9349,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sInfoEmpty": "Showing 0 to 0 of 0 entries",
+			"sInfoEmpty": "Mostrando 0 de 0 do total de 0 registros",
 		
 		
 			/**
@@ -9458,7 +9458,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sLengthMenu": "Show _MENU_ entries",
+			"sLengthMenu": "Ver _MENU_ registros",
 		
 		
 			/**
@@ -9538,7 +9538,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sSearch": "Search:",
+			"sSearch": "Buscar:",
 		
 		
 			/**
@@ -11360,7 +11360,7 @@
 		 *  @type array
 		 *  @default []
 		 */
-		"aLengthMenu": null,
+		"aLengthMenu": [null],
 		
 		/**
 		 * Counter for the draws that the table does. Also used as a tracker for

@@ -13,7 +13,7 @@ class acoesController extends Controller {
             $senha = md5(addslashes($_POST['senha']));
             $u = new Usuario();
             if($u->consultar($email, $senha)){
-                $nivel_acesso = $u->getNivelAcesso();
+                $nivel_acesso = $u->getNivel_acesso();
                 if($nivel_acesso == 1){
                     // pegando dados do usuário
                     $_SESSION['dadosusuario']['idusuario'] = $u->getId();
@@ -49,6 +49,13 @@ class acoesController extends Controller {
             }
             $u->setCpf($cpf);
         }
+
+        if (isset($_POST['tppessoa']) && $_POST['tppessoa'] != 99) {
+            $u->setTppessoa($_POST['tppessoa']);
+        } else {
+            $u->setTppessoa("pf");
+        }
+
 
         if (isset($_POST['senha']) && !empty($_POST['senha']) && isset($_POST['re-senha']) && !empty($_POST['re-senha']) ) {
             $senha = md5(addslashes($_POST['senha']));
@@ -247,7 +254,15 @@ class acoesController extends Controller {
         if(isset($_GET['id']) && !empty($_GET['id'])){
             $id = $_GET['id'];
             $u->consultarId($id);
-            echo "Entrou";
+
+            // Dados login
+            #email
+            if(isset($_POST['email']) && !empty( $_POST['email'] ) ){
+                $email = addslashes($_POST['email']);
+                $u->setEmail($email);
+            }
+
+            #senha
             if(isset($_POST['senha']) && !empty($_POST['senha']) && isset($_POST['senha']) && !empty($_POST['senha']) ) {
                 if($_POST['senha'] == $_POST['re-senha'] ){
                     $senha = md5(addslashes($_POST['senha']) );
@@ -255,22 +270,74 @@ class acoesController extends Controller {
                 }
             }
 
+            #permissao
+            if($_POST['nivel_acesso'] != 99 ){
+                $nivel_acesso = addslashes($_POST['nivel_acesso']);
+                $u->setNivel_acesso($nivel_acesso);
+            }
+        
+            // Dados Pessoais
+            #nome
             if(isset($_POST['nome']) && !empty( $_POST['nome']) ) {
                 $nome = addslashes($_POST['nome']);
                 $u->setNome($nome);
             }
 
-            if(isset($_POST['email']) && !empty( $_POST['email'] ) ){
-                $email = addslashes($_POST['email']);
-                $u->setEmail($email);
+            #tppessoa
+            if(isset($_POST['tppessoa']) && !empty( $_POST['tppessoa']) ) {
+                $tppessoa = addslashes($_POST['tppessoa']);
+                $u->setTppessoa($tppessoa);
             }
 
-            if(isset($_POST['nivel_acesso']) && !empty( $_POST['nivel_acesso']) ){
-                if($_POST['nivel_acesso'] != 99 ){
-                    $nivel_acesso = addslashes($_POST['nivel_acesso']);
-                    $u->setNivelAcesso($nivel_acesso);
-                }
+            #cpf
+            if(isset($_POST['cpf']) && !empty( $_POST['cpf']) ) {
+                $cpf = addslashes($_POST['cpf']);
+                $u->setCpf($cpf);
             }
+
+            #cnpj
+            if(isset($_POST['cnpj']) && !empty( $_POST['cnpj']) ) {
+                $cnpj = addslashes($_POST['cnpj']);
+                $u->setCnpj($cnpj);
+            }
+
+            #telefone
+            if(isset($_POST['telefone']) && !empty( $_POST['telefone']) ) {
+                $telefone = addslashes($_POST['telefone']);
+                $u->setTelefone($telefone);
+            }
+
+            // Dados Residênciais
+            #CEP
+            if(isset($_POST['cep']) && !empty( $_POST['cep']) ) {
+                $cep = addslashes($_POST['cep']);
+                $u->setCep($cep);
+            }
+
+            #Logradouro          
+            if(isset($_POST['logradouro']) && !empty( $_POST['logradouro']) ) {
+                $logradouro = addslashes($_POST['logradouro']);
+                $u->setLogradouro($logradouro);
+            }
+
+            #Numero
+            if(isset($_POST['numero']) && !empty( $_POST['numero']) ) {
+                $numero = addslashes($_POST['numero']);
+                $u->setNumero($numero);
+            }
+
+            #Bairro
+            if(isset($_POST['bairro']) && !empty( $_POST['bairro']) ) {
+                $bairro = addslashes($_POST['bairro']);
+                $u->setBairro($bairro);
+            }
+
+            #Complemento
+            if(isset($_POST['complemento']) && !empty( $_POST['complemento']) ) {
+                $complemento = addslashes($_POST['complemento']);
+                $u->setComplemento($complemento);
+            }
+
 
             if($u->salvar()){
                 // Manda mensagem pro SESSION

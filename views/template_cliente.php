@@ -52,7 +52,7 @@
                                 <li class="active"><a href="/home/cliente"><i class="menu-icon icon-home"></i>Inicio</a></li>
                                 <li><a href="/cliente/verjogos/"><i class="menu-icon icon-plus"></i>Fazer aposta</a></li>
                                 <li><a href="/cliente/ver_apostas/"><i class="menu-icon icon-th-list"></i>Ver Apostas
-                                    <b class="label green pull-right">NºDEJOGOS</b>
+                                    <b class="label green pull-right"><?php echo $_SESSION['n_apostas']; ?></b>
                                 </a></li>
 
                             </ul>
