@@ -33,22 +33,26 @@ class jogosController extends Controller {
 
     public function finalizar(){
         if(isset($_GET['id']) && !empty($_GET['id'])){
+            $data = array();
             $id = addslashes($_GET['id']);
             $j = new Jogos();
-            if($j->finalizarJogo($id)){
-                $_SESSION['msgjogos']['avisar'] = 1;
-                $_SESSION['msgjogos']['categoria'] = "alert-info";
-                $_SESSION['msgjogos']['aviso'] = "<strong>Jogo finalizado!!</strong>";
-            } else {
-                $_SESSION['msgjogos']['avisar'] = 1;
-                $_SESSION['msgjogos']['categoria'] = "alert-danger";
-                $_SESSION['msgjogos']['aviso'] = "<strong>Algo deu errado!</strong>";
-            }
-        }
-
-        header("Location: /admin/gerjogos/");
+            $data['dadosjogo'] = $j->consultarId($id);
+            $titles = array("ti1"=>"Finalizar Jogo");
+            $data['dadosjogo']['data_inicio'] = date("d/m/Y", strtotime($data['dadosjogo']['data_inicio']));
+            $data['dadosjogo']['data_fim'] = date("d/m/Y", strtotime($data['dadosjogo']['data_fim']));
+            $data['palpites'] = explode(",", $j->getPalpites_disponiveis());
+            $this->loadTemplate("finalizar_jogo",$data,$titles);
+        } else {
+            $_SESSION['msgjogos']['avisar'] = 1;
+            $_SESSION['msgjogos']['categoria'] = "alert-danger";
+            $_SESSION['msgjogos']['aviso'] = "<strong>Algo deu errado!</strong>";
+         
+            header("Location: /admin/gerjogos/");
+    }
     }
 
+
+       
     public function inativar(){
         if(isset($_GET['id']) && !empty($_GET['id'])){
             $id = addslashes($_GET['id']);

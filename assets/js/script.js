@@ -4,16 +4,13 @@ $(document).ready(function(){
     $('.telefone').mask('(00) 0 0000-0000');
     $('.CEP').mask('00.000-000');
     $('.CPF').mask('000.000.000-00', {reverse: true});
-   
-
-
-
-
-
-
+    $('.CNPJ').mask('00.000.000/0000-00', {reverse: true});
+    
+    console.log( "ready!" );
+});
 
 // Estados_Cidades
-	$.getJSON('/assets/js/estados_cidades.json', function (data) {
+    $.getJSON('/assets/js/estados_cidades.json', function (data) {
 
     var items = [];
     var options = '<option value="">Escolha um estado</option>';    
@@ -42,24 +39,19 @@ $(document).ready(function(){
 
         $("#cidades").html(options_cidades);
         
-    }).change();        
+    } ).change();
+});        
 
 
+function tpPessoa(){
+    var tppessoa = $("#tppessoa").val();
 
-
-});
-
-
-function tppessoa(){
-    if( $("#tppessoa").val() == "pf" ){
-
-        $("#cnpj").attr("disabled","disabled");
-        $("#cpf").removeAttr("disabled");
-    }
-
-    if( $("#tppessoa").val() == "pj" ){
-
+    if(tppessoa == "pj"){
         $("#cpf").attr("disabled","disabled");
         $("#cnpj").removeAttr("disabled");
+    }
+    if(tppessoa == "pf") {
+        $("#cnpj").attr("disabled","disabled");
+        $("#cpf").removeAttr("disabled");
     }
 }

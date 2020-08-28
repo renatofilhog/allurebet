@@ -12,6 +12,31 @@ class Apostas extends model {
 	private $palpite;
 	private $valor;
 	private $bilhete;
+    private $ganhou;
+
+    public function trazerApostasGanhadoras($palpite){
+        $sql = "SELECT * FROM apostas WHERE palpite='".$palpite."' AND status=1";
+        $sql = $this->pdo->query($sql);
+        if($sql->rowCount() > 0){
+            $data['apostaswin'] = $sql->fetchAll();
+            return $data['apostaswin'];
+        } else {
+            return $data["qnt_apostas"] = $sql->rowCount();
+        }
+    }
+    public function trazerApostas($id_jogo){
+        $sql = "SELECT * FROM apostas WHERE id_jogo=$id_jogo";
+        $sql = $this->pdo->query($sql);
+        $data = array();
+        if($sql->rowCount()>0){
+            $data['apostas'] = $sql->fetchAll();
+            $data['qnt_apostas'] = $sql->rowCount();
+
+            return $data;
+        }
+
+        return $data;
+    }
 
     public function trazerApostados($id){
         $sql = "SELECT * FROM apostas WHERE id_usuario=$id";
@@ -27,17 +52,36 @@ class Apostas extends model {
             
     }
 
+    public function consultarId($id){
+        $sql = "SELECT * FROM apostas WHERE id_usuario=$id";
+        $sql = $this->pdo->query($sql);
+        if($sql->rowCount()>0){
+            $data = $sql->fetchAll();
+            $this->id = $data['id'];
+            $this->id_usuario = $data['id_usuario'];
+            $this->id_jogo = $data['id_jogo'];
+            $this->status = $data['status'];
+            $this->data = $data['data'];
+            $this->palpite = $data['palpite'];
+            $this->valor = $data['valor'];
+            $this->bilhete = $data['bilhete'];
+            $this->ganhou = $data['ganhou'];
+            return $data;
+        }
+    }
+
 	public function salvar(){
 		if (isset($this->id) && !empty($this->id)){
 			//Update
-			$sql = "UPDATE jogos SET tipo_jogo=?, valor_minimo=?, palpites_disponiveis=?, status=?, ativo=? WHERE id=?";
+			$sql = "UPDATE jogos SET tipo_jogo=?, valor_minimo=?, palpites_disponiveis=?, status=?, ativo=?, ganhou=? WHERE id=?";
 			$sql = $this->pdo->prepare($sql);
 			$sql->bindParam(1,$this->tipo_jogo, PDO::PARAM_STR);
 			$sql->bindParam(2,$this->valor_minimo, PDO::PARAM_STR);
 			$sql->bindParam(3,$this->palpites_disponiveis, PDO::PARAM_STR);
 			$sql->bindParam(4,$this->status, PDO::PARAM_INT);
             $sql->bindParam(5,$this->ativo, PDO::PARAM_INT);
-            $sql->bindParam(6,$this->id, PDO::PARAM_INT);
+            $sql->bindParam(6,$this->ganhou, PDO::PARAM_INT);
+            $sql->bindParam(7,$this->id, PDO::PARAM_INT);
             //$sql->execute(array($this->nome,$this->email,$this->senha,$this->id));
 			if($sql->execute()){
 				return true;
@@ -145,6 +189,14 @@ class Apostas extends model {
 
     public function setBilhete($bilhete){
         $this->bilhete = $bilhete;
+    }
+
+    public function getGanhou(){
+        return $this->ganhou;
+    }
+
+    public function setGanhou($ganhou){
+        $this->ganhou = $ganhou;
     }
 
 }

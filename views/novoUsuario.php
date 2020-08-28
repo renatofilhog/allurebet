@@ -7,43 +7,43 @@
             </div>
             <div class="module-body">
                 <!-- Mensagem padrão -->
-                <?php if(!isset($_SESSION['msg']['edit_user']) || $_SESSION['msg']['edit_user'] == 0): ?>
+                <?php if(!isset($_SESSION['msg']['new_user']) || $_SESSION['msg']['new_user'] == 0): ?>
                     <div class="alert">
                         <button type="button" class="close" data-dismiss="alert">×</button>
                         <strong>Atenção!</strong> Preencha os campos corretamente.
                     </div>
-                <?php $_SESSION['msg']['edit_user'] = 0; endif; ?>
+                <?php $_SESSION['msg']['new_user'] = 0; endif; ?>
                 
                 <!-- Mensagens de sucesso -->
-                <?php if(isset($_SESSION['msg']['edit_user']) && $_SESSION['msg']['edit_user'] == 1): ?>
+                <?php if(isset($_SESSION['msg']['new_user']) && $_SESSION['msg']['new_user'] == 1): ?>
                     <div class="alert alert-success">
                         <button type="button" class="close" data-dismiss="alert">×</button>
-                        <?php echo $_SESSION['msg']['aviso'] ?>
+                        <?php echo $_SESSION['msg']['new_user_aviso'] ?>
 
                     </div>
-                <?php $_SESSION['msg']['edit_user'] = 0; endif; ?>
+                <?php $_SESSION['msg']['new_user'] = 0; endif; ?>
 
                 <!-- Mensagens de erros -->
-                <?php if(isset($_SESSION['msg']['edit_user']) && $_SESSION['msg']['edit_user'] == 2): ?>
+                <?php if(isset($_SESSION['msg']['new_user']) && $_SESSION['msg']['new_user'] == 2): ?>
                     <div class="alert alert-error">
                         <button type="button" class="close" data-dismiss="alert">×</button>
-                        <?php echo $_SESSION['msg']['aviso'] ?>
+                        <?php echo $_SESSION['msg']['new_user_aviso'] ?>
                         
                     </div>
-                <?php $_SESSION['msg']['edit_user'] = 0; endif; ?>
+                <?php $_SESSION['msg']['new_user'] = 0; endif; ?>
 
                 <!-- Nenhum campo foi alterado -->
-                <?php if(isset($_SESSION['msg']['edit_user']) && $_SESSION['msg']['edit_user'] == 3): ?>
+                <?php if(isset($_SESSION['msg']['new_user']) && $_SESSION['msg']['new_user'] == 3): ?>
                     <div class="alert">
                         <button type="button" class="close" data-dismiss="alert">×</button>
-                        <?php echo $_SESSION['msg']['aviso'] ?>
+                        <?php echo $_SESSION['msg']['new_user_aviso'] ?>
                         
                     </div>
-                <?php $_SESSION['msg']['edit_user'] = 0; endif; ?>
+                <?php $_SESSION['msg']['new_user'] = 0; endif; ?>
 
                     <br />
 
-                    <form class="form-horizontal row-fluid" action="/acoes/editarUsuario?id=<?php echo $_GET['id']; ?>" method="POST">
+                    <form class="form-horizontal row-fluid" action="/acoes/novoUsuario" method="POST">
                         <!-- Dados de login -->
                         <div class="control-group">
                             <div class="controls">
@@ -113,7 +113,7 @@
                         <div class="control-group">
                             <label class="control-label" for="basicinput">Tipo pessoa:</label>
                             <div class="controls">
-                                <select name="tppessoa" id="tppessoa" onchange="tppessoa()">
+                                <select name="tppessoa" id="tppessoa" onchange="tpPessoa(this)">
                                     <option value="pf">Física</option>
                                     <option value="pj">Juridica</option>
                                 </select>
@@ -134,7 +134,7 @@
                         <div class="control-group">
                             <label class="control-label" for="basicinput">CNPJ</label>
                             <div class="controls">
-                                <input type="text" id="cnpj" name="cnpj" placeholder="CNPJ (Somente números)" class="span8 cnpj">
+                                <input type="text" id="cnpj" name="cnpj" placeholder="CNPJ (Somente números)" class="span8 CNPJ" disabled="">
                                 <span class="help-inline"><i></i></span>
                             </div>
                         </div>
@@ -144,7 +144,7 @@
                         <div class="control-group">
                             <label class="control-label" for="basicinput">Telefone</label>
                             <div class="controls">
-                                <input type="text" name="telefone" placeholder="Telefone (Somente números)" class="span8 tel">
+                                <input type="text" name="telefone" placeholder="Telefone (Somente números)" class="span8 telefone">
                                 <span class="help-inline"><i></i></span>
                             </div>
                         </div>
@@ -156,6 +156,24 @@
                             </div>
                         </div>
 
+                        <!-- Estados -->
+                        <div class="control-group">
+                            <label class="control-label">Estado</label>
+                            <div class="controls">
+                                <select id="estados" name="estado" class="form-control">
+                                    <option value="99">Estado (UF)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label">Cidade</label>
+                            <div class="controls">
+                                <select id="cidades" name="cidade" class="form-control">
+
+                                </select>
+                            </div>
+                        </div>
                         <!-- CEP -->
                         <div class="control-group">
                             <label class="control-label" for="basicinput">CEP</label>
@@ -204,7 +222,7 @@
                         <!-- Botao submit  -->
                         <div class="control-group">
                             <div class="controls">
-                                <button type="submit" class="btn btn-warning">Editar usuario</button>
+                                <button type="submit" class="btn btn-info">Criar usuario</button>
                             </div>
                         </div>
                     </form>
@@ -212,4 +230,3 @@
         </div>
     </div><!--/.content-->
 </div><!--/.span9-->
-

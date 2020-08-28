@@ -46,14 +46,16 @@
                                                 <a class="btn btn-warning btn-sm" onclick="location.href = '/jogos/editar?id=<?php echo $valor['id']; ?>';">
                                                     Editar
                                                 </a>
-                                                
+                                                <?php if($valor['status'] == 0): ?>
                                                 <a class="btn btn-success btn-sm" onclick="location.href = '/jogos/iniciar?id=<?php echo $valor['id']; ?>';">
                                                     Iniciar
                                                 </a>
-                                                
-                                                <a class="btn btn-info btn-sm" onclick="location.href = '/jogos/finalizar?id=<?php echo $valor['id']; ?>';"">
+                                                <?php endif; ?>
+                                                <?php if($valor['status'] == 1): ?>
+                                                <a class="btn btn-info btn-sm" onclick="location.href = '/jogos/finalizar?id=<?php echo $valor['id']; ?>';">
                                                     Finalizar
                                                 </a>
+                                                <?php endif; ?>
                                                 
                                                 <a class="btn btn-secondary btn-sm" onclick="location.href = '/jogos/inativar?id=<?php echo $valor['id']; ?>';"">
                                                     Inativar

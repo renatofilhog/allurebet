@@ -155,6 +155,160 @@ class acoesController extends Controller {
         }      
     }
 
+    public function novoUsuario(){
+        $u = new Usuario();
+        // Dados Login
+
+        #Email
+        if(isset($_POST['email']) && !empty($_POST['email'])) { 
+            $email = addslashes($_POST['email']);
+            if($u->consultarEmail($email)){
+                echo "Tem email";
+                $_SESSION['msg']['new_user'] = 2;
+                $_SESSION['msg']['new_user_aviso'] = "<strong>Erro ao salvar</strong> e-mail já existe.";
+                header("Location: /usuarios/novo/");
+                exit;
+            } else {
+                $u->setEmail($email);
+            }
+        }
+
+        #Senha
+        if (isset($_POST['senha']) && !empty($_POST['senha']) && isset($_POST['re-senha']) && !empty($_POST['re-senha']) ) {
+            $senha = md5(addslashes($_POST['senha']));
+            $re_senha = md5(addslashes($_POST['re-senha']));
+                if ($senha == $re_senha){
+                    $u->setSenha($senha);
+                } else {
+                    $_SESSION['msg']['new_user'] = 2;
+                    $_SESSION['msg']['new_user_aviso'] = "<strong>Erro ao salvar</strong> Senhas não conferem.";
+                    header("Location: /usuarios/novo/");
+                    exit;
+                }
+        }
+
+        #Nivel_Acesso
+        if(isset($_POST['nivel_acesso']) && $_POST['nivel_acesso'] != 99){
+            $u->setNivel_acesso(addslashes($_POST['nivel_acesso']));
+        } else {
+            $_SESSION['msg']['new_user'] = 2;
+            $_SESSION['msg']['new_user_aviso'] = "<strong>Erro ao salvar</strong> selecione uma permissão.";
+            header("Location: /usuarios/novo/");
+            exit;
+        }
+
+        // Dados Pessoais
+        #TP PESSOA E CPF/CNPJ
+        if (isset($_POST['tppessoa']) && $_POST['tppessoa'] != 99) {
+            if($_POST['tppessoa'] == "pj"){
+                $u->setTppessoa($_POST['tppessoa']);
+                if(isset($_POST['cnpj']) && !empty($_POST['cnpj'])){
+                    $cnpj = str_replace(".", "", $_POST['cnpj']);
+                    $cnpj = str_replace("-", "", $cnpj);
+                    $cnpj = str_replace("/", "", $cnpj);
+                    $cnpj = addslashes($cnpj);
+                    if ($u->consultarCpf($cnpj)) {
+                        $_SESSION['msg']['new_user'] = 2;
+                        $_SESSION['msg']['new_user_aviso'] = "<strong>Erro ao salvar</strong> CNPJ já existe.";
+                        header("Location: /usuarios/novo/");
+                        exit;
+                    }
+                    $u->setCnpj($cnpj);
+                }
+            } elseif($_POST['tppessoa'] == "pf") {
+                $u->setTppessoa($_POST['tppessoa']);
+                if(isset($_POST['cpf']) && !empty($_POST['cpf'])){
+                    $cpf = str_replace(".", "", $_POST['cpf']);
+                    $cpf = str_replace("-", "", $cpf);
+                    $cpf = addslashes($cpf);
+                    if ($u->consultarCpf($cpf)) {
+                        $_SESSION['msg']['new_user'] = 2;
+                        $_SESSION['msg']['new_user_aviso'] = "<strong>Erro ao salvar</strong> CPF já existe.";
+                        header("Location: /usuarios/novo/");
+                        exit;
+                    }
+                    $u->setCpf($cpf);
+                }
+            }
+        } else {
+            $_SESSION['msg']['new_user'] = 2;
+            $_SESSION['msg']['new_user_aviso'] = "<strong>Erro ao salvar</strong> Preencha os dados pessoais.";
+            header("Location: /usuarios/novo/");
+            exit;
+        }
+        #Nome e telefone
+        if (
+            isset($_POST['nome']) && !empty($_POST['nome'])
+            && isset($_POST['telefone']) && !empty($_POST['telefone'])
+        ) {
+            $telefone = str_replace(" ", "", $_POST['telefone']);
+            $telefone = str_replace("(", "", $telefone);
+            $telefone = str_replace(")", "", $telefone);
+            $telefone = str_replace("-", "", $telefone);
+            $telefone = addslashes($telefone);
+            $u->setTelefone($telefone);
+            
+            $nome = addslashes($_POST['nome']);
+            $u->setNome($nome);
+
+        } else {
+            $_SESSION['msg']['new_user'] = 2;
+            $_SESSION['msg']['new_user_aviso'] = "<strong>Erro ao salvar</strong> não tem o nome.";
+            header("Location: /usuarios/novo/");
+            exit;
+        }
+
+        // Dados de moradia
+        #ENDEREÇO COM CEP
+        if (
+            isset($_POST['cep']) && !empty($_POST['cep'])
+            && isset($_POST['logradouro']) && !empty($_POST['logradouro'])
+            && isset($_POST['bairro']) && !empty($_POST['bairro'])
+            && $_POST['estado'] != 99 && !empty($_POST['estado'])
+            && isset($_POST['numero']) && !empty($_POST['numero'])
+        ) {
+
+            //Tratamentos e Afins de dados
+            $cep = str_replace(".", "", $_POST['cep']);            
+            $cep = str_replace("-", "", $cep);
+            $cep = addslashes($cep);
+            $u->setCep($cep);
+            
+            $logradouro = addslashes($_POST['logradouro']);
+            $u->setLogradouro($logradouro);
+            
+            $bairro = addslashes($_POST['bairro']);
+            $u->setBairro($bairro);
+            
+            $numero = addslashes($_POST['numero']);
+            $u->setNumero($numero);
+            
+            if(isset($_POST['complemento']) && !empty($_POST['comlemento'])){
+                $comlemento = addslashes($_POST['comlemento']);
+                $u->setComplemento($complemento);
+            }
+            $estado = addslashes($_POST['estado']);
+            $u->setEstado($estado);
+            
+            $cidade = addslashes($_POST['cidade']);
+            $u->setCidade($cidade);
+            echo "<pre>";
+            print_r(get_defined_vars());
+            echo "</pre>";
+            if($u->salvar()){
+                $_SESSION['msg']['new_user'] = 1;
+                $_SESSION['msg']['new_user_aviso'] = "<strong>Usuário cadastrado</strong> verifique a area de gerenciamento.";
+                header("Location: /usuarios/novo/");
+                exit;
+
+            } else {
+                $_SESSION['msg']['new_user'] = 2;
+                $_SESSION['msg']['new_user_aviso'] = "<strong>Erro ao salvar</strong> contate o administrador.";
+                echo "<script>alert('Algo deu errado ao cadastrar');window.location.href = ".BASEURL.";</script>";    
+            }
+        }
+    }
+
     public function logout(){
         $_SESSION['dadosusuario'] = null;
         header("Location: /home/index");
@@ -381,7 +535,6 @@ class acoesController extends Controller {
                 header("Location: /jogos/apostar?id=".$_SESSION['dadosjogo']['id']);
             }
         }
-        echo "Estamos indo bem";
         $a = new Apostas();
 
         $a->setId_usuario($_SESSION['dadosusuario']['idusuario']);
@@ -401,6 +554,30 @@ class acoesController extends Controller {
         }
 
 
+    }
+
+    public function finalizarJogo(){
+        $j = new Jogos();
+        $a = new Apostas();
+        if(isset($_POST['palpite']) && $_POST['palpite'] != 99){
+            
+            $id = addslashes($_GET['idjogo']);
+            $j->consultarId($id);
+            $j->setPalpite_certo($_POST['palpite']);
+            $data['apostaswin'] = $a->trazerApostasGanhadoras($j->getPalpite_certo());
+            $j->setStatus(2); #Finalizado
+            $j->salvar();
+
+            foreach ($data['apostaswin'] as $key => $value) {
+                $a1 = new Apostas();
+                $a1->consultarId($value['id']);
+                $a1->setGanhou(1);
+                $a1->salvar();
+            }
+
+            $titles = array("ti1" => "Ganhadores do jogo");
+            $this->loadTemplate("apostas_ganhadoras",$data,$titles);
+        }
     }
 
 

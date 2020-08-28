@@ -209,6 +209,17 @@ class Usuario extends model {
 		return false;
 	}
 
+	public function consultarCnpj($cnpj){
+		$sql = "SELECT * FROM usuarios WHERE cnpj=?";
+		$sql = $this->pdo->prepare($sql);
+		$sql->bindParam(1,$cnpj, PDO::PARAM_STR);
+		$sql->execute();
+		if ($sql->rowCount()>0){
+			return true;
+		}
+		return false;
+	}
+
 	public function consultarEmail($email){
 		$sql = "SELECT * FROM usuarios WHERE email=?";
 		$sql = $this->pdo->prepare($sql);

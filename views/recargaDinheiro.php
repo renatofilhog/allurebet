@@ -3,7 +3,7 @@
     <div class="module">
         <div class="module">
             <div class="module-head">
-                <h3>Jogos não iniciados e Em Andamento</h3>
+                <h3>Recarregar dinheiro</h3>
             </div>
             
             <div class="module-body table">
@@ -26,7 +26,7 @@
                             <th>Tipo de Pessoa</th>
                             <th>CPF/CNPJ</th>
                             <th>Telefone</th>
-                            <th>Permissão</th>  
+                            <th>Dinheiro R$</th>  
                         </tr>
                     </thead>
                     <tbody>
@@ -37,44 +37,23 @@
                                 
                                     <td>
                                     <?php echo $valor['nome']; ?>
-                                        
-
+                                    </td>
+                                    <td><?php echo $valor['email'] ?></td>
+                                    <td><?php if($valor['tppessoa']=="pf"){echo "Física";} elseif($valor['tppessoa']=="pj") {echo "Jurídica";} else{echo "Nao definido";} ?></td>
+                                    <td><?php if($valor['tppessoa']=="pf"){echo $valor['cpf'];} elseif($valor['tppessoa']=="pj") {echo $valor['cnpj'];} else{echo "Nao definido";} ?></td>
+                                    <td><span class="telefone"><?php echo $valor['telefone'] ?></span></td>
+                                    <td>
+                                        <?php 
+                                            echo $valor['dinheiro'];
+                                        ?>
                                         <a class="collapsed unstyled" data-toggle="collapse" href="#acoesItem<?php echo $chave; ?>">
                                             <i class="icon-chevron-down pull-right"></i>
                                         </a>
                                         <ul id="acoesItem<?php echo $chave; ?>" class="collapse unstyled">
-                                                <a class="btn btn-warning btn-sm" onclick="location.href = '/usuarios/editar?id=<?php echo $valor['id']; ?>';">
-                                                    Editar
+                                                <a class="btn btn-info btn-sm" onclick="location.href = '/usuarios/dinheiro?id=<?php echo $valor['id']; ?>';">
+                                                    Adicionar
                                                 </a>
                                         </ul>
-                                    </td>
-                                    <td><?php echo $valor['email'] ?></td>
-                                    <td><?php if($valor['tppessoa']=="pf"){echo "Física";} elseif($valor['tppessoa']=="pj") {echo "Jurídica";} else{echo "Nao definido";} ?></td>
-                                    <td><?php if($valor['tppessoa']=="pf"){echo "<span class='CPF'>".$valor['cpf']."</span>";} elseif($valor['tppessoa']=="pj") {echo "<span class='CNPJ'>".$valor['cnpj']."</span>";} else{echo "Nao definido";} ?></td>
-                                    <td><span class="telefone"><?php echo $valor['telefone'] ?></span></td>
-                                    <td>
-                                        <?php 
-                                            // Status: 0 = Pendente / 1 = Em andamento / 2 = Finalizado
-                                            switch($valor['nivel_acesso']){
-                                                case 0:
-                                                    echo "Cliente";
-                                                break;
-                                                case 1:
-                                                    echo "Administrador";
-                                                break;
-                                                case 2:
-                                                    echo "Gerente";
-                                                break;
-                                                case 3:
-                                                    echo "Promotor";
-                                                break;
-                                                case 4:
-                                                    echo "Banca";
-                                                break;
-                                                default:
-                                                    echo "Não definido";
-                                            }
-                                        ?>
                                     </td>
                                 </tr>
                                 
@@ -88,12 +67,10 @@
                             <th>CPF</th>
                             <th>RG</th>
                             <th>Telefone</th>
-                            <th>Permissão</th>    
+                            <th>Dinheiro R$</th>  
                         </tr>
                     </tfoot>
                 </table>
-                
-                <a href="/usuarios/novo/" class="span btn btn-success"><i class="menu-icon icon-user"></i>Criar usuário</a>
                 <hr>
                 
             </div>

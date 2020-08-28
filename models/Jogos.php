@@ -6,12 +6,13 @@
 
 class Jogos extends model {
     private $id;
-    private $nome_jogo;
+	private $nome_jogo;
     private $data_inicio;
     private $data_fim;
     private $tipo_jogo;
     private $valor_minimo;
     private $palpites_disponiveis;
+    private $palpite_certo;
     private $status;
     private $ativo;
 
@@ -152,6 +153,7 @@ class Jogos extends model {
             $this->palpites_disponiveis = $data['palpites_disponiveis'];
             $this->status = $data['status'];
             $this->ativo = $data['ativo'];
+            $this->palpite_certo = $data['palpite_certo'];
 			return $data;
 		} else {
 			return "datafalsa";
@@ -176,8 +178,8 @@ class Jogos extends model {
             $this->status = $data['status'];
 			$this->ativo = $data['ativo'];
 			if($this->status == 0){
-				$this->status = 1;
-				$this->salvar();
+				#$this->status = 1;
+				#$this->salvar();
 				return true;	
 			} else {
 				return false;
@@ -287,6 +289,14 @@ class Jogos extends model {
 
 	public function setId($id){
 		$this->id = $id;
+	}
+
+	public function getPalpite_certo(){
+		return $this->palpite_certo;
+	}
+
+	public function setPalpite_certo($palpite_certo){
+		$this->palpite_certo = $palpite_certo;
 	}
 
 	public function getNome_jogo(){
