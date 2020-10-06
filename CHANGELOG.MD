@@ -1,3 +1,33 @@
+commit 888c53fc635d014d928b4c4214ee4a78381a3e91 (HEAD -> master, github/master)
+Author: Renato Filho <frenato258@gmail.com>
+Date:   Fri Aug 28 16:00:26 2020 -0300
+
+    Modulo de finalização e ganhadores
+
+commit 3185c41e04f97586ef59e06487e24f091f052a2b
+Author: Renato Filho <frenato258@gmail.com>
+Date:   Thu Aug 27 00:40:36 2020 -0300
+
+    Criado botao de criar usuario e tela, falta funcionalidade e algumas edições
+
+commit 7ba032da1bdfcddaf72e790d4d7a1dbecff6099b
+Author: Renato Filho <frenato258@gmail.com>
+Date:   Thu Aug 27 00:08:18 2020 -0300
+
+    Realizado a inclusao dos novos campos no Gerenciar usuarios do Admin
+
+commit 62521f1ed332205c09ab33e60367d48d9228bbfc
+Author: Renato Filho <frenato258@gmail.com>
+Date:   Tue Aug 25 19:13:09 2020 -0300
+
+    Realizado Item 1 do README.MD faltando somente cadastro na parte admin
+
+commit d5d7e40f1d46f0c464df2010caf2bef57fabb94b
+Author: Renato Filho <frenato258@gmail.com>
+Date:   Tue Aug 25 08:27:46 2020 -0300
+
+    Incluido CHANGELOG e colocado pendências no README.MD
+
 (HEAD -> master, umbler/master, github/master)
 commit 275fc3fc9a58ad5269d7786a6ad0bc217251db9d
 Author: Renato Filho <frenato258@gmail.com>
