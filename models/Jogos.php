@@ -18,8 +18,9 @@ class Jogos extends model {
 
 
 	public function trazerTodos($ativo, $status=""){
-		if(empty($status)){
+		if($status === ""){
 			$sql = "SELECT * FROM jogos WHERE ativo=$ativo";
+			//echo $sql; exit;
 			$sql = $this->pdo->query($sql);
 			if($sql->rowCount()>0){
 				return $sql->fetchAll();
@@ -28,6 +29,7 @@ class Jogos extends model {
 			}
 		} else {
 			$sql = "SELECT * FROM jogos WHERE ativo=$ativo AND status=$status";
+			//echo $sql; exit;
 			$sql = $this->pdo->query($sql);
 			if($sql->rowCount()>0){
 				return $sql->fetchAll();
@@ -134,6 +136,11 @@ class Jogos extends model {
 		} else {
 			return false;
 		}
+	}
+
+	public function puxarGanhadores($id){
+		consultarId($id);
+		
 	}
 
 	public function consultarId($id){

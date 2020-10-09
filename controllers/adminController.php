@@ -22,7 +22,7 @@ class adminController extends Controller {
     public function gerjogos(){
         $data = array();
         $j = new Jogos();
-        $data['allgames'] = $j->trazerTodos(1);
+        $data['allgames'] = $j->trazerTodos(1,"0 OR status=1");
         $titles = array("ti1"=>"Gerenciar jogos");
         $this->loadTemplate("gerjogos",$data,$titles);
     }
@@ -33,6 +33,14 @@ class adminController extends Controller {
         $data['allgames'] = $j->trazerTodos(0);
         $titles = array("ti1"=>"Gerenciar jogos inativos");
         $this->loadTemplate("verJogosInativos",$data,$titles);
+    }
+
+    public function verjogos_finalizados(){
+        $data = array();
+        $j = new Jogos();
+        $data['allgames_finalizados'] = $j->trazerTodos(1,2);
+        $titles = array("ti1"=>"Visualizar Finalizados");
+        $this->loadTemplate("verjogos_finalizados",$data,$titles);
     }
 
     public function gerusuarios(){

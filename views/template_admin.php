@@ -58,6 +58,10 @@
                                 <li><a href="/admin/verjogos/"><i class="menu-icon icon-th-list"></i>Ver inativos
                                     <b class="label gray pull-right"><?php echo $_SESSION['infomenu']['n_inativos']; ?></b>
                                 </a></li>
+                                <!-- Ver finalizados -->
+                                <li><a href="/admin/verjogos_finalizados/"><i class="menu-icon icon-th-list"></i>Ver finalizados
+                                    <b class="label gray pull-right"><?php //echo $_SESSION['infomenu']['n_inativos']; ?></b>
+                                </a></li>
 
                             </ul>
                         <!-- Fim da primeira parte do menu lateral -->
