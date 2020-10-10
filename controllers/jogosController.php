@@ -132,11 +132,11 @@ class jogosController extends Controller {
 
     public function ver_ganhadores(){
         if(isset($_GET['id_jogo']) && !empty($_GET['id_jogo'])){
-            //$j = new Jogos();
-            //$data['ganhadores'] = $j->puxarGanhadores($_GET['id_jogo']);
-            //$titles = array("ti1"=>"Ganhadores do Jogo".$data['ganhadores']['nomejogo']);
-            $data = [];
-            $titles = array("ti1"=>"Ganhadores do Jogo");
+            $j = new Jogos();
+            $data['jogo'] = $j->consultarId($_GET['id_jogo']);
+            $a = new Apostas();
+            $data['ganhadores'] = $a->consultarGanhadores($j->getId());
+            $titles = array("ti1"=>$data['jogo']['nome_jogo']);
             $this->loadTemplate("ver_ganhadores",$data,$titles);
         } else {
             echo "<script>alert('algo deu errado');</script>";

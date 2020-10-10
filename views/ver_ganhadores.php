@@ -1,3 +1,6 @@
+<?php 
+
+?>
 <div class="span9">
     <div class="content">
     <div class="module">
@@ -19,9 +22,9 @@
                 
                 <h2 style="text-align: center;">Informações sobre o Jogo</h2><br>
                 <p style="text-align: center;">
-                    <strong>Nome do jogo:</strong> PA <br>
-                    <strong>Tipo de Jogo:</strong> papa <br>
-                    <strong>Data de fim:</strong> PA-BA-LALA <br>
+                    <strong>Nome do jogo:</strong> <?php echo $jogo['nome_jogo'] ?> <br>
+                    <strong>Tipo de Jogo:</strong> <?php echo ucfirst($jogo['tipo_jogo']); ?> <br>
+                    <strong>Data de fim:</strong>  <?php echo date("d/m/Y", strtotime($jogo['data_fim']));?> <br>
                 </p>
 
                
@@ -35,44 +38,21 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php if(is_array($allgames_finalizados) && count($allgames_finalizados)>0): ?>
-                            <?php foreach($allgames_finalizados as $chave => $valor): ?>    
+                        <?php if(is_array($ganhadores) && count($ganhadores)>0): ?>
+                            <?php foreach($ganhadores as $chave => $valor): ?>    
                                 
                                 <tr class="dropdown-toggle" data-toggle="dropdown">
                                 
                                     <td>
-                                    <?php echo $valor['nome_jogo']; ?>
+                                    <?php echo $valor['nome_usuario']; ?>
                                         
 
-                                        <a class="collapsed unstyled" data-toggle="collapse" href="#acoesItem<?php echo $chave; ?>">
-                                            <i class="icon-chevron-down pull-right"></i>
-                                        </a>
-                                        <ul id="acoesItem<?php echo $chave; ?>" class="collapse unstyled">
-                                                <a class="btn btn-success btn-sm" onclick="location.href = '/jogos/ver_ganhadores?id=<?php echo $valor['id']; ?>';">
-                                                    Ver ganhadores
-                                                </a>
-                                                
-                                                <a class="btn btn-info btn-sm" onclick="location.href = '/jogos/inativar?id=<?php echo $valor['id']; ?>';">
-                                                    Inativar
-                                                </a>
-                                        </ul>
+                                        
                                     </td>
-                                    <td><?php echo $valor['data_inicio'] ?></td>
-                                    <td><?php echo $valor['data_fim'] ?></td>
-                                    <td><?php echo $valor['tipo_jogo'] ?></td>
-                                    <td><?php echo $valor['valor_minimo'] ?></td>
-                                    <td>
-                                        <?php 
-                                            // Status: 0 = Pendente / 1 = Em andamento / 2 = Finalizado
-                                            if($valor['status'] == 0){
-                                                echo "Pendente";
-                                            } elseif($valor['status'] == 1){
-                                                echo "Em andamento";
-                                            } elseif($valor['status'] == 2){
-                                                echo "Finalizado";
-                                            }
-                                        ?>
-                                    </td>
+                                    <td><?php echo date("d/m/Y", strtotime($valor['data_aposta'])); ?></td>
+                                    <td><?php echo $valor['valor_apostado'] ?></td>
+                                    <td><?php echo $valor['bilhete'] ?></td>
+                                    
                                 </tr>
                                 
                             <?php endforeach; ?>

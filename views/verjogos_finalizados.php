@@ -47,9 +47,9 @@
                                                     Ver ganhadores
                                                 </a>
                                                 
-                                                <a class="btn btn-info btn-sm" onclick="location.href = '/jogos/inativar?id=<?php echo $valor['id']; ?>';">
+                                                <!-- <a class="btn btn-info btn-sm" onclick="location.href = '/jogos/inativar?id=<?php echo $valor['id']; ?>';">
                                                     Inativar
-                                                </a>
+                                                </a> -->
                                         </ul>
                                     </td>
                                     <td><?php echo $valor['data_inicio'] ?></td>

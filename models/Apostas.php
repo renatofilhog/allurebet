@@ -14,6 +14,17 @@ class Apostas extends model {
 	private $bilhete;
     private $ganhou;
 
+    public function consultarGanhadores($id_jogo){
+        $sql = "SELECT id_usuario, (SELECT usuarios.nome FROM usuarios WHERE usuarios.id = apostas.id_usuario) as nome_usuario, data AS data_aposta, valor AS valor_apostado, bilhete FROM apostas WHERE id_jogo=".$id_jogo." AND ganhou=1";
+        $sql = $this->pdo->query($sql);
+        $data = [];
+        if($sql->rowCount() > 0){
+            $data['ganhadores'] = $sql->fetchAll();
+            return $data['ganhadores'];
+        }
+        return $data;
+    }
+
     public function trazerApostasGanhadoras($palpite){
         $sql = "SELECT * FROM apostas WHERE palpite='".$palpite."' AND status=1";
         $sql = $this->pdo->query($sql);
