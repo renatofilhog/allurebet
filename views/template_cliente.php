@@ -60,6 +60,9 @@
                             
                         <!-- Segunda parte do menu lateral / ADMIN AREA -->    
                             <ul class="widget widget-menu unstyled">
+                                <li><a href="#"><i class="menu-icon icon-money"></i>Dinheiro Disponível:
+                                    <b class="label yellow pull-right"><?php echo "R$".$_SESSION['qnt_dinheiro'] ?></b>
+                                </a></li>
                                 <li><a href="#"><i class="menu-icon icon-user"></i>Gerenciar Perfil </a></li>
                                 <li><a href="#"><i class="menu-icon icon-envelope"></i>Fale conosco</a></li>
                             </ul>

@@ -51,7 +51,7 @@ class adminController extends Controller {
         $this->loadTemplate("gerenciarUsuarios",$data,$titles);
     }
 
-    public function gerpagamentos(){
+    public function recarga_de_dinheiro(){
         $data = array();
         $u = new Usuario();
         $data['allusers'] = $u->trazerTodos();

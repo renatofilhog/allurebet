@@ -46,10 +46,10 @@
                                                 <a class="btn btn-success btn-sm" onclick="location.href = '/jogos/apostar?id=<?php echo $valor['id']; ?>';">
                                                     Apostar
                                                 </a>
-
+<!-- 
                                                 <a class="btn btn-info btn-sm" onclick="location.href = '/jogos/verdetalhes?id=<?php echo $valor['id']; ?>';">
                                                     Ver detalhes
-                                                </a>
+                                                </a> -->
                                                 
                                                 
                                         </ul>

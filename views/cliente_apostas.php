@@ -21,7 +21,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                	<?php if(is_array($apostas_usuario) && $apostas_usuario.count()>0): ?>
+                	<?php if(is_array($apostas_usuario) && count($apostas_usuario)>0): ?>
                     	<?php foreach ($apostas_usuario as $chave => $valor):?>
 							<tr class="dropdown-toggle" data-toggle="dropdown">
 								<?php 

@@ -1,6 +1,7 @@
 $(document).ready(function(){
     $('.dateform').mask('00/00/0000');
     $('.moneyform').mask('000.000.000.000.000,00', {reverse: true});
+    $('#moneyform').mask('000.000.000.000.000,00', {reverse: true});
     $('.telefone').mask('(00) 0 0000-0000');
     $('.CEP').mask('00.000-000');
     $('.CPF').mask('000.000.000-00', {reverse: true});

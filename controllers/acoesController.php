@@ -519,20 +519,28 @@ class acoesController extends Controller {
 
     
     public function apostar(){
+        $u = new Usuario();
         if(isset($_POST['palpite']) && $_POST['palpite'] != 99){
             $palpite = addslashes($_POST['palpite']);
         } else {
             $_SESSION['msg']['aposta'] = 3;
             $_SESSION['msg']['aviso'] = "<strong>Nada feito!</strong> Selecione algum palpite.";
             header("Location: /jogos/apostar?id=".$_SESSION['dadosjogo']['id']);
+            exit;
         }
         if (isset($_POST['valor']) && !empty($_POST['valor'])) {
             $valor = addslashes($_POST['valor']);
+            $valor = str_replace(".","", $valor);
+            $valor = str_replace(",",".", $valor);
             $valor_minimo = $_SESSION['dadosjogo']['valor_minimo'];
-            if ($valor < $valor_minimo-0.001) {
+
+            $u->consultarId($_SESSION['dadosusuario']['idusuario']);
+            $dinheiro = $u->getDinheiro();
+            if ($valor < $valor_minimo-0.001 || $dinheiro<$valor-0.001) {
                 $_SESSION['msg']['aposta'] = 3;
-                $_SESSION['msg']['aviso'] = "<strong>Nada feito!</strong> valor de aposta mínimo é maior que o valor do palpite.";
+                $_SESSION['msg']['aviso'] = "<strong>Nada feito!</strong> valor de aposta mínimo é maior que o valor do palpite ou Não há dinheiro suficiente para esta aposta.";
                 header("Location: /jogos/apostar?id=".$_SESSION['dadosjogo']['id']);
+                exit;
             }
         }
         $a = new Apostas();
@@ -545,11 +553,16 @@ class acoesController extends Controller {
         $a->setBilhete($bilhete);
 
         if($a->salvar()){
+            $dinAtual= number_format($u->getDinheiro() - $a->getValor(), 2);
+            $u->setDinheiro($dinAtual);
+            $u->salvar();
+            $_SESSION['qnt_dinheiro'] = $u->getDinheiro();
             $_SESSION['msg']['aposta'] = 1;
             header("Location: /jogos/apostar?id=".$_SESSION['dadosjogo']['id']);
         } else {
             $_SESSION['msg']['aposta'] = 3;
             $_SESSION['msg']['aviso'] = "<strong>Nada feito!</strong> Algo deu errado ao salvar";
+            
             header("Location: /jogos/apostar?id=".$_SESSION['dadosjogo']['id']);
         }
 
@@ -560,23 +573,13 @@ class acoesController extends Controller {
         $j = new Jogos();
         $a = new Apostas();
         if(isset($_POST['palpite']) && $_POST['palpite'] != 99){
-            
-            $id = addslashes($_GET['idjogo']);
-            $j->consultarId($id);
+            $id_jogo = addslashes($_GET['idjogo']);
+            $j->consultarId($id_jogo);
             $j->setPalpite_certo($_POST['palpite']);
-            $data['apostaswin'] = $a->trazerApostasGanhadoras($j->getPalpite_certo());
             $j->setStatus(2); #Finalizado
             $j->salvar();
-
-            foreach ($data['apostaswin'] as $key => $value) {
-                $a1 = new Apostas();
-                $a1->consultarId($value['id']);
-                $a1->setGanhou(1);
-                $a1->salvar();
-            }
-
-            $titles = array("ti1" => "Ganhadores do jogo");
-            $this->loadTemplate("apostas_ganhadoras",$data,$titles);
+            $a->definirJogo($id_jogo, $_POST['palpite']);   
+            header("Location: /jogos/ver_ganhadores?id_jogo=".$id_jogo);
         }
     }
 

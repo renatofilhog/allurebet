@@ -24,16 +24,9 @@ class Apostas extends model {
         }
         return $data;
     }
-
-    public function trazerApostasGanhadoras($palpite){
-        $sql = "SELECT * FROM apostas WHERE palpite='".$palpite."' AND status=1";
-        $sql = $this->pdo->query($sql);
-        if($sql->rowCount() > 0){
-            $data['apostaswin'] = $sql->fetchAll();
-            return $data['apostaswin'];
-        } else {
-            return $data["qnt_apostas"] = $sql->rowCount();
-        }
+    public function definirJogo($id_jogo, $palpite){
+        $sql = "UPDATE apostas SET ganhou=1 WHERE id_jogo=".$id_jogo." AND palpite='".$palpite."'";
+        $this->pdo->query($sql);
     }
     public function trazerApostas($id_jogo){
         $sql = "SELECT * FROM apostas WHERE id_jogo=$id_jogo";

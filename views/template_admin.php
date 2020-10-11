@@ -54,23 +54,21 @@
                                 <li class="active"><a href="/home/admin"><i class="menu-icon icon-home"></i>Inicio</a></li>
                                 <li><a href="/admin/jogo/"><i class="menu-icon icon-plus"></i>Criar Jogo</a></li>
                                 <li><a href="/admin/gerjogos/"><i class="menu-icon icon-inbox"></i>Gerenciar jogos</a></li>
-                                
-                                <li><a href="/admin/verjogos/"><i class="menu-icon icon-th-list"></i>Ver inativos
-                                    <b class="label gray pull-right"><?php echo $_SESSION['infomenu']['n_inativos']; ?></b>
-                                </a></li>
                                 <!-- Ver finalizados -->
                                 <li><a href="/admin/verjogos_finalizados/"><i class="menu-icon icon-th-list"></i>Ver finalizados
                                     <b class="label gray pull-right"><?php //echo $_SESSION['infomenu']['n_inativos']; ?></b>
                                 </a></li>
-
+                                
                             </ul>
                         <!-- Fim da primeira parte do menu lateral -->
                             
                         <!-- Segunda parte do menu lateral / ADMIN AREA -->    
                             <ul class="widget widget-menu unstyled">
                                 <li><a href="/admin/gerusuarios/"><i class="menu-icon icon-group"></i>Gerenciar Usuários </a></li>
-                                <li><a href="/admin/gerpagamentos/"><i class="menu-icon icon-money"></i>Gerenciar Pagamentos</a></li>
-                                <li><a href="/admin/verganhadores/"><i class="menu-icon icon-trophy"></i>Ver ganhadores</a></li>
+                                <li><a href="/admin/recarga_de_dinheiro/"><i class="menu-icon icon-money"></i>Recarga de Dinheiro</a></li>
+                                <li><a href="/admin/verjogos/"><i class="menu-icon icon-th-list"></i>Ver inativos
+                                    <b class="label gray pull-right"><?php echo $_SESSION['infomenu']['n_inativos']; ?></b>
+                                </a></li>
                             </ul>
                         <!--/ ADMIN AREA -->
                             <ul class="widget widget-menu unstyled">

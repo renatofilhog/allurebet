@@ -80,7 +80,7 @@ class Usuario extends model {
 			$sql->bindParam(12,$this->numero, PDO::PARAM_STR);
 			$sql->bindParam(13,$this->bairro, PDO::PARAM_STR);
 			$sql->bindParam(14,$this->complemento, PDO::PARAM_STR);
-			$sql->bindParam(15,$this->dinheiro, PDO::PARAM_INT);
+			$sql->bindParam(15,$this->dinheiro, PDO::PARAM_STR);
 			$sql->bindParam(16,$this->tppessoa, PDO::PARAM_STR);
 			$sql->bindParam(17,$this->id, PDO::PARAM_INT);
 			if($sql->execute()){

@@ -9,12 +9,9 @@
             <div class="module-body table">
 
                 <!-- /* Avisos -->
-                <?php if(isset($_SESSION['msgjogos']['avisar']) && $_SESSION['msgjogos']['avisar'] == 1): ?>
-                    <div class="alert <?php echo $_SESSION['msgjogos']['categoria']; ?>">
-                        <button type="button" class="close" data-dismiss="alert">×</button>
-                        <?php echo $_SESSION['msgjogos']['aviso']; ?>
-                    </div>
-                <?php endif; $_SESSION['msgjogos']['avisar'] = null;?>
+                <?php if(isset($_SESSION['msgAlert']) && !empty($_SESSION['msgAlert'])): ?>
+                    <?php echo $_SESSION['msgAlert']; ?>
+                <?php endif; $_SESSION['msgAlert'] = null;?>
                 <!-- Fim avisos -->
                
                
@@ -42,16 +39,17 @@
                                     <td><?php if($valor['tppessoa']=="pf"){echo "Física";} elseif($valor['tppessoa']=="pj") {echo "Jurídica";} else{echo "Nao definido";} ?></td>
                                     <td><?php if($valor['tppessoa']=="pf"){echo $valor['cpf'];} elseif($valor['tppessoa']=="pj") {echo $valor['cnpj'];} else{echo "Nao definido";} ?></td>
                                     <td><span class="telefone"><?php echo $valor['telefone'] ?></span></td>
-                                    <td>
-                                        <?php 
-                                            echo $valor['dinheiro'];
-                                        ?>
+                                    <td><?php if(empty($valor['dinheiro'])){
+                                                 echo "0";
+                                              } else {
+                                                echo $valor['dinheiro'];
+                                              } ?>
                                         <a class="collapsed unstyled" data-toggle="collapse" href="#acoesItem<?php echo $chave; ?>">
                                             <i class="icon-chevron-down pull-right"></i>
                                         </a>
                                         <ul id="acoesItem<?php echo $chave; ?>" class="collapse unstyled">
-                                                <a class="btn btn-info btn-sm" onclick="location.href = '/usuarios/dinheiro?id=<?php echo $valor['id']; ?>';">
-                                                    Adicionar
+                                                <a class="btn btn-primary btn-sm" onclick="location.href = '/usuarios/recargaDinheiroT?id=<?php echo $valor['id']; ?>';">
+                                                    Recarga>
                                                 </a>
                                         </ul>
                                     </td>
@@ -90,4 +88,5 @@
             $('.CEP').mask('00.000-000');
             $('.CPF').mask('000.000.000-00', {reverse: true});
 		} );
+
 </script>

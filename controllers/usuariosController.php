@@ -31,6 +31,28 @@ class usuariosController extends Controller {
 
     }
 
+    public function recargaDinheiro(){
+        if(isset($_GET['id_usuario']) && !empty($_GET['id_usuario'])){
+            $u = new Usuario();
+            $u->consultarId($_GET['id_usuario']);
+            $din = str_replace(".", "", $_POST['dinheiro']);
+            $din = str_replace(",", ".", $din);
+            $u->setDinheiro($u->getDinheiro()+$din);
+            if($u->salvar()){
+                $_SESSION['msgAlert'] = "<script>alert('Recarga Realizada');</script>";
+                header("location: /admin/recarga_de_dinheiro/");
+            } else {
+                $_SESSION['msgAlert'] = "<script>alert('Erro na recarga');</script>";
+                header("location: /admin/recarga_de_dinheiro/");
+            }
+        }
+    }
+    public function recargaDinheiroT(){
+        $data = array();
+        $titles = array("ti1"=>"Recarregar Usuário");
+        $this->loadTemplate('formDinheiro',$data,$titles);
+    }
+
     public function novo(){
         $data = array();
         $titles = array("ti1"=>"Novo usuário");
