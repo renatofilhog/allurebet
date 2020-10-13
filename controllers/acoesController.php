@@ -535,7 +535,9 @@ class acoesController extends Controller {
             $valor_minimo = $_SESSION['dadosjogo']['valor_minimo'];
 
             $u->consultarId($_SESSION['dadosusuario']['idusuario']);
+            $dinheiro = str_replace(",", "", $u->getDinheiro());
             $dinheiro = $u->getDinheiro();
+
             if ($valor < $valor_minimo-0.001 || $dinheiro<$valor-0.001) {
                 $_SESSION['msg']['aposta'] = 3;
                 $_SESSION['msg']['aviso'] = "<strong>Nada feito!</strong> valor de aposta mínimo é maior que o valor do palpite ou Não há dinheiro suficiente para esta aposta.";
@@ -551,9 +553,9 @@ class acoesController extends Controller {
         $a->setValor($valor);
             $bilhete = $_SESSION['dadosusuario']['idusuario'].$_SESSION['dadosjogo']['id'].time();
         $a->setBilhete($bilhete);
-
+        
         if($a->salvar()){
-            $dinAtual= number_format($u->getDinheiro() - $a->getValor(), 2);
+            $dinAtual= $u->getDinheiro() - $a->getValor();
             $u->setDinheiro($dinAtual);
             $u->salvar();
             $_SESSION['qnt_dinheiro'] = $u->getDinheiro();
@@ -576,7 +578,7 @@ class acoesController extends Controller {
             $id_jogo = addslashes($_GET['idjogo']);
             $j->consultarId($id_jogo);
             $j->setPalpite_certo($_POST['palpite']);
-            $j->setStatus(2); #Finalizado
+            $j->setStatus(2); #Finalizado;
             $j->salvar();
             $a->definirJogo($id_jogo, $_POST['palpite']);   
             header("Location: /jogos/ver_ganhadores?id_jogo=".$id_jogo);

@@ -17,7 +17,8 @@ class homeController extends Controller {
 		$data = array(
 			'nomeusuario' => $_SESSION['dadosusuario']['nome'],
 			'n_usuarios' => $n_usuarios->contarUsuarios(),
-			'n_jogos_andamento' => $n_jogos->contarJogos(1)
+			'n_jogos_andamento' => $n_jogos->contarJogos(1),
+			'dinheiro_distribuido'=> $n_jogos->dinheiroDistribuido()
 		);
 		$_SESSION['infomenu']['n_inativos'] = $n_jogos->contarJogosAI(0);
 		$titles = array('ti1' => "Jogo do Bicho");

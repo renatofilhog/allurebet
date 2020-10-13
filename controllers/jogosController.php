@@ -18,7 +18,9 @@ class jogosController extends Controller {
         if(isset($_GET['id']) && !empty($_GET['id'])){
             $id = addslashes($_GET['id']);
             $j = new Jogos();
-            if($j->iniciarJogo($id)){
+            $j->consultarId($id);
+            $j->setStatus(1);
+            if($j->salvar()){
                 $_SESSION['msgjogos']['avisar'] = 1;
                 $_SESSION['msgjogos']['categoria'] = "alert-success";
                 $_SESSION['msgjogos']['aviso'] = "<strong>Jogo em andamento!!</strong>";
@@ -57,7 +59,9 @@ class jogosController extends Controller {
         if(isset($_GET['id']) && !empty($_GET['id'])){
             $id = addslashes($_GET['id']);
             $j = new Jogos();
-            if($j->inativarJogo($id)){
+            $j->consultarId($id);
+            $j->setAtivo(0);
+            if($j->salvar()){
                 $_SESSION['msgjogos']['avisar'] = 1;
                 $_SESSION['msgjogos']['categoria'] = "alert-secondary";
                 $_SESSION['msgjogos']['aviso'] = "<strong>Jogo inativado</strong>";
@@ -76,7 +80,9 @@ class jogosController extends Controller {
         if(isset($_GET['id']) && !empty($_GET['id'])){
             $id = addslashes($_GET['id']);
             $j = new Jogos();
-            if($j->reativarJogo($id)){
+            $j->consultarId($id);
+            $j->setAtivo(1);
+            if($j->salvar()){
                 $_SESSION['msgjogos']['avisar'] = 1;
                 $_SESSION['msgjogos']['categoria'] = "alert-info";
                 $_SESSION['msgjogos']['aviso'] = "<strong>Jogo re-ativado</strong>";

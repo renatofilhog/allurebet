@@ -36,15 +36,12 @@
 								<td><?php echo $valor['bilhete'] ?></td>
 								<td>
 									<?php 
-										if($valor['status']==0){
-											echo "A pagar";
-											?>
-												<a class="collapsed unstyled" data-toggle="collapse" href="#acoesItem<?php echo $chave; ?>">
-	                                        		<i class="icon-chevron-down pull-right"></i>
-	                                    		</a>
-											<?php
-										} else {
-											echo "<strong><mark>Pago</mark></strong>";
+										if(!isset($jogo['palpite_certo']) || empty($jogo['palpite_certo'])){
+											echo "Sort. Pendente";
+										} elseif($valor['ganhou'] == 1) {
+											echo "<strong><mark>GANHOOU!!</mark></strong>";
+										} elseif($valor['ganhou'] == 0) {
+											echo "<strong>Sem sorte!!</strong>";
 										}
 									?>
 									

@@ -22,9 +22,10 @@ if(!isset($_SESSION['dadosusuario']['nivel_acesso']) || $_SESSION['dadosusuario'
                                         <p class="text-muted">
                                             Jogos em Andamento</p>
                                     </a>
-                                    <a href="#" class="btn-box big span4"><i class="icon-money"></i><b>R$ 15,152</b>
+                                    <a href="#" class="btn-box big span4"><i class="icon-money"></i><b>R$ 
+                                        <?php echo $dinheiro_distribuido['money'] ?></b>
                                         <p class="text-muted">
-                                            Dinheiro distribuido</p>
+                                            Dinheiro distribuido </p>
                                     </a>
                                 </div>
                     <!-- FIM DOS 3 primeiros BUTTOS VISU STATUS -->

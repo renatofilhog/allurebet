@@ -39,6 +39,11 @@ class Jogos extends model {
 		}
 	}
 
+	public function dinheiroDistribuido(){
+		$sql = "SELECT SUM(dinheiro) as 'money' FROM `usuarios` WHERE nivel_acesso=0";
+		$sql = $this->pdo->query($sql);
+		return $sql->fetch();
+	}
     public function contarJogos($stat){
 		if($stat > 3){
 			$sql = "SELECT * FROM jogos";
@@ -67,14 +72,15 @@ class Jogos extends model {
     public function salvar(){
 		if (isset($this->id) && !empty($this->id)){
 			//Update
-			$sql = "UPDATE jogos SET tipo_jogo=?, valor_minimo=?, palpites_disponiveis=?, status=?, ativo=? WHERE id=?";
+			$sql = "UPDATE jogos SET tipo_jogo=?, valor_minimo=?, palpites_disponiveis=?, status=?, ativo=?, palpite_certo=? WHERE id=?";
 			$sql = $this->pdo->prepare($sql);
 			$sql->bindParam(1,$this->tipo_jogo, PDO::PARAM_STR);
 			$sql->bindParam(2,$this->valor_minimo, PDO::PARAM_STR);
 			$sql->bindParam(3,$this->palpites_disponiveis, PDO::PARAM_STR);
 			$sql->bindParam(4,$this->status, PDO::PARAM_INT);
             $sql->bindParam(5,$this->ativo, PDO::PARAM_INT);
-            $sql->bindParam(6,$this->id, PDO::PARAM_INT);
+            $sql->bindParam(6,$this->palpite_certo, PDO::PARAM_STR);
+            $sql->bindParam(7,$this->id, PDO::PARAM_INT);
             //$sql->execute(array($this->nome,$this->email,$this->senha,$this->id));
 			if($sql->execute()){
 				return true;
@@ -167,35 +173,6 @@ class Jogos extends model {
 		}
 	}
 
-	public function iniciarJogo($id){
-		$sql = "SELECT * FROM jogos WHERE id=?";
-		$sql = $this->pdo->prepare($sql);
-		$sql->bindParam(1,$id, PDO::PARAM_INT);
-		$sql->execute();
-		$data = array();
-		if ($sql->rowCount()>0){
-            $data = $sql->fetch();
-            $this->id = $data['id'];
-            $this->nome_jogo = $data['nome_jogo'];
-            $this->data_inicio = $data['data_inicio'];
-            $this->data_fim = $data['data_fim'];
-            $this->tipo_jogo = $data['tipo_jogo'];
-            $this->valor_minimo = $data['valor_minimo'];
-            $this->palpites_disponiveis = $data['palpites_disponiveis'];
-            $this->status = $data['status'];
-			$this->ativo = $data['ativo'];
-			if($this->status == 0){
-				#$this->status = 1;
-				#$this->salvar();
-				return true;	
-			} else {
-				return false;
-			}
-		} else {
-			return false;
-		}
-	}
-
 	public function finalizarJogo($id){
 		$sql = "SELECT * FROM jogos WHERE id=?";
 		$sql = $this->pdo->prepare($sql);
@@ -225,67 +202,7 @@ class Jogos extends model {
 		}
 	}
 
-	public function inativarJogo($id){
-		$sql = "SELECT * FROM jogos WHERE id=?";
-		$sql = $this->pdo->prepare($sql);
-		$sql->bindParam(1,$id, PDO::PARAM_INT);
-		$sql->execute();
-		$data = array();
-		if ($sql->rowCount()>0){
-            $data = $sql->fetch();
-            $this->id = $data['id'];
-            $this->nome_jogo = $data['nome_jogo'];
-            $this->data_inicio = $data['data_inicio'];
-            $this->data_fim = $data['data_fim'];
-            $this->tipo_jogo = $data['tipo_jogo'];
-            $this->valor_minimo = $data['valor_minimo'];
-            $this->palpites_disponiveis = $data['palpites_disponiveis'];
-            $this->status = $data['status'];
-			$this->ativo = $data['ativo'];
-			if($this->ativo == 1){
-				$this->ativo = 0;
-				$this->salvar();
-				return true;	
-			} else {
-				return false;
-			}
-		} else {
-			return false;
-		}
-	}
-
-	public function reativarJogo($id){
-		$sql = "SELECT * FROM jogos WHERE id=?";
-		$sql = $this->pdo->prepare($sql);
-		$sql->bindParam(1,$id, PDO::PARAM_INT);
-		$sql->execute();
-		$data = array();
-		if ($sql->rowCount()>0){
-            $data = $sql->fetch();
-            $this->id = $data['id'];
-            $this->nome_jogo = $data['nome_jogo'];
-            $this->data_inicio = $data['data_inicio'];
-            $this->data_fim = $data['data_fim'];
-            $this->tipo_jogo = $data['tipo_jogo'];
-            $this->valor_minimo = $data['valor_minimo'];
-            $this->palpites_disponiveis = $data['palpites_disponiveis'];
-            $this->status = $data['status'];
-			$this->ativo = $data['ativo'];
-			if($this->ativo == 0){
-				$this->ativo = 1;
-				$this->salvar();
-				return true;	
-			} else {
-				return false;
-			}
-		} else {
-			return false;
-		}
-	}
-	
-    
-
-    /* 
+	/* 
     * Getters e Setters
     * By: http://mikeangstadt.name/projects/getter-setter-gen/
     */
