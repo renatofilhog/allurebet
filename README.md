@@ -19,4 +19,4 @@
 - Rever passagem de dados entre telas
 - Otimizar apostas e trabalhar em sorteios automáticos.
 
-### Para melhor visualização, ir para o link na descrição, ou https://alluredevolopment.com.br/awax
+### Para melhor visualização, ir para o link na descrição, ou https://alluredevolopment.com.br/allurebet
