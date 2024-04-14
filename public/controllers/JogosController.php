@@ -1,8 +1,9 @@
 <?php
-/*
-* Classe jogos: /jogos/
-* 
-*/
+
+namespace controllers;
+use core\Controller;
+use models\Jogos;
+use models\Apostas;
 class jogosController extends Controller {
 	
 	public function index(){

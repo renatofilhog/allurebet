@@ -1,7 +1,10 @@
 <?php
 // Classe criada anteriormente em outros módulos, foi re-adaptada
 // Nivel acesso: 1 = Administrador / 0 = Cliente / 2 = Gerente / 3 = Promotor / 4 = Banca;
+namespace models;
 
+use core\model;
+use PDO;
 
 class Usuario extends model {
 	private $id;
@@ -141,15 +144,10 @@ class Usuario extends model {
 			}
 			
 			$sql->bindValue(":nivel_acesso",$this->nivel_acesso, PDO::PARAM_INT);
-			echo "<pre>";
-            print_r($sql);
-            echo "</pre>";
 			if( $sql->execute() ){
 				$this->id = $this->pdo->lastInsertId();
-				echo "Aqui nd";
 				return true;
 			} else {
-				echo "Aqui sim";
 				return false;
 			}
 		} 

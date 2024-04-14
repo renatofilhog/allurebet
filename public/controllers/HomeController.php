@@ -4,6 +4,12 @@
 * 
 * views/home.php
 */
+namespace controllers;
+use core\Controller;
+use models\Apostas;
+use models\Jogos;
+use models\Usuario;
+
 class homeController extends Controller {
 	public function index(){
 		$data = array();

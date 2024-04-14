@@ -1,3 +1,8 @@
+## 14-04-2024 - Adaptação para docker
+- Inclui banco de dados
+- Otimizei banco de dados
+- Consertado links de redirecionamento
+
 commit 888c53fc635d014d928b4c4214ee4a78381a3e91 (HEAD -> master, github/master)
 Author: Renato Filho <frenato258@gmail.com>
 Date:   Fri Aug 28 16:00:26 2020 -0300

@@ -1,0 +1,62 @@
+version: "3.9"
+
+services:
+  web:
+    image: nginx:1.25.1
+    container_name: webserver-nginx
+    volumes:
+      - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./public:/var/www/html
+    ports:
+      - "${APP_PORT}:${NGINX_PORT}"
+    environment:
+      - NGINX_HOST=${NGINX_HOST}
+      - NGINX_PORT=${NGINX_PORT}
+    depends_on:
+      - php
+      - db
+    networks:
+      - webnetwork
+
+  php:
+    container_name: php-dev-7.1.29
+    build:
+      context: .
+      dockerfile: ./docker/php/Dockerfile
+    volumes:
+      - ./public:/var/www/html
+    environment:
+      - PHP_IDE_CONFIG=serverName=xdebug.local
+      - XDEBUG_CONFIG=client_host=host.docker.internal client_port=9003
+      - XDEBUG_SESSION=1
+
+    command: php-fpm --nodaemonize
+    networks:
+      - webnetwork
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  db:
+    image: mysql:8.0
+    container_name: db-mysql-dev
+    restart: 'no'
+    ports:
+      - "${MYSQL_PORT}:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+    volumes:
+      - ./banco.sql:/docker-entrypoint-initdb.d/banco.sql
+      - 'db-mysql:/var/lib/mysql'
+    networks:
+      - webnetwork
+
+networks:
+  webnetwork:
+    driver: bridge
+
+volumes:
+  db-mysql:
+    driver: local

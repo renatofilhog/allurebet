@@ -1,11 +1,16 @@
 <?php
+namespace controllers;
 /*
 * Classe acoes: /acoes/
 * 
 * Não há VIEWS, funciona somente para redirecionamento
 */
+use models\Usuario;
+use models\Jogos;
+use models\Apostas;
+use core\Controller;
 class acoesController extends Controller {
-   
+   static $nivelAcessoPadrao = 0;
 
 	public function login(){
         if(isset($_POST['email']) && !empty($_POST['email']) && isset($_POST['senha']) && !empty($_POST['senha'])){
@@ -20,7 +25,6 @@ class acoesController extends Controller {
                     $_SESSION['dadosusuario']['nome'] = $u->getNome();
                     $_SESSION['dadosusuario']['email'] = $u->getEmail();
                     $_SESSION['dadosusuario']['nivel_acesso'] = $nivel_acesso;
-                    echo "Ok";
                     header("Location: /home/admin");
                 } elseif($nivel_acesso == 0){
                     // pegando dados do usuário
@@ -77,7 +81,7 @@ class acoesController extends Controller {
 
         if(isset($_POST['nivel_acesso']) && $_POST['nivel_acesso'] != 99 ){
             // Var Padrão de Cliente;
-            $u->setNivel_acesso($nivel_acesso);    
+            $u->setNivel_acesso(self::$nivelAcessoPadrao);
         } else {
             // Var Padrão de Cliente;
             $u->setNivel_acesso(0);
@@ -120,7 +124,7 @@ class acoesController extends Controller {
             $u->setNumero($numero);
             
             if(isset($_POST['complemento']) && !empty($_POST['comlemento'])){
-                $comlemento = addslashes($_POST['comlemento']);
+                $complemento = addslashes($_POST['comlemento']);
                 $u->setComplemento($complemento);
             }
             $estado = addslashes($_POST['estado']);
@@ -128,19 +132,15 @@ class acoesController extends Controller {
             
             $cidade = addslashes($_POST['cidade']);
             $u->setCidade($cidade);
-            echo "<pre>";
-            print_r(get_defined_vars());
-            echo "</pre>";
             if($u->salvar()){
-                if($u->getNivel_acesso >= 1){
+                if($u->getNivel_acesso() >= 1){
                     // pegando dados do usuário
                     $_SESSION['dadosusuario']['idusuario'] = $u->getId();
                     $_SESSION['dadosusuario']['nome'] = $u->getNome();
                     $_SESSION['dadosusuario']['email'] = $u->getEmail();
                     $_SESSION['dadosusuario']['nivel_acesso'] = $u->getNivel_acesso();
-                    echo "Ok";
                     header("Location: /home/admin");
-                } elseif($u->getNivel_acesso == 0){
+                } elseif($u->getNivel_acesso() == 0){
                     // pegando dados do usuário
                     $_SESSION['dadosusuario']['idusuario'] = $u->getId();
                     $_SESSION['dadosusuario']['nome'] = $u->getNome();
@@ -163,7 +163,6 @@ class acoesController extends Controller {
         if(isset($_POST['email']) && !empty($_POST['email'])) { 
             $email = addslashes($_POST['email']);
             if($u->consultarEmail($email)){
-                echo "Tem email";
                 $_SESSION['msg']['new_user'] = 2;
                 $_SESSION['msg']['new_user_aviso'] = "<strong>Erro ao salvar</strong> e-mail já existe.";
                 header("Location: /usuarios/novo/");
@@ -284,7 +283,7 @@ class acoesController extends Controller {
             $u->setNumero($numero);
             
             if(isset($_POST['complemento']) && !empty($_POST['comlemento'])){
-                $comlemento = addslashes($_POST['comlemento']);
+                $complemento = addslashes($_POST['comlemento']);
                 $u->setComplemento($complemento);
             }
             $estado = addslashes($_POST['estado']);
@@ -292,9 +291,6 @@ class acoesController extends Controller {
             
             $cidade = addslashes($_POST['cidade']);
             $u->setCidade($cidade);
-            echo "<pre>";
-            print_r(get_defined_vars());
-            echo "</pre>";
             if($u->salvar()){
                 $_SESSION['msg']['new_user'] = 1;
                 $_SESSION['msg']['new_user_aviso'] = "<strong>Usuário cadastrado</strong> verifique a area de gerenciamento.";
@@ -401,10 +397,6 @@ class acoesController extends Controller {
 
     public function editarUsuario(){
         $u = new Usuario();
-        // print_r(get_defined_vars());
-        // echo "<br>";
-        // print_r($_POST);
-        // exit;
         if(isset($_GET['id']) && !empty($_GET['id'])){
             $id = $_GET['id'];
             $u->consultarId($id);

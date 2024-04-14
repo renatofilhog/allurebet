@@ -3,6 +3,10 @@
 * Model
 */
 
+namespace models;
+
+use core\model;
+
 class Apostas extends model {
 	private $id;
 	private $id_usuario;

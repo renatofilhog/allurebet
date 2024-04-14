@@ -2,7 +2,10 @@
 // Classe criada anteriormente em outros módulos, foi re-adaptada
 // ativo: 0 = inativo / 1 = ativo
 // Status: 0 = Pendente / 1 = Em andamento / 2 = Finalizado
+namespace models;
 
+use core\model;
+use PDO;
 
 class Jogos extends model {
     private $id;

@@ -1,13 +1,13 @@
 <?php
+namespace controllers;
+
+use core\Controller;
+use models\Jogos;
+use models\Usuario;
 /*
 * Classe admin: /admin/
 * Não há view INDEX
 */
-
-use core\controller;
-use models\Jogos;
-use models\Usuario;
-
 class adminController extends Controller {
 	
 	public function index(){

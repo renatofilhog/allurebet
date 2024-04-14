@@ -1,10 +1,8 @@
 <?php
-/*
-* Classe admin: /admin/
-* 
-* views/admin.php
-*/
-class adminController extends Controller {
+
+namespace controllers;
+use core\Controller;
+class SuporteController extends Controller {
 	public function index(){
 		$titles=array();
 		$data = array();

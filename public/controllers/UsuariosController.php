@@ -1,8 +1,7 @@
 <?php
-/*
-* Classe usuarios: /usuarios/
-* 
-*/
+namespace controllers;
+use core\Controller;
+use models\Usuario;
 class usuariosController extends Controller {
 	
 	public function index(){

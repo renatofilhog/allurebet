@@ -1,5 +1,6 @@
 <?php
 // Fica dentro da Pasta CORE (Coração de tudo)
+namespace core;
 class controller {
 	/* Este método/ação vai carregar uma view
 	* PARAM ($viewName) NOME da view a ser carregada

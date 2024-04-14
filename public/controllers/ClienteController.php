@@ -3,6 +3,10 @@
 * Classe Cliente: cliente /cliente/
 * 
 */
+namespace controllers;
+use core\Controller;
+use models\Jogos;
+use models\Apostas;
 class clienteController extends Controller {
 
 	// -- Traz a view "cliente" para a tela (Index padrão);
